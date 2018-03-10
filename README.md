@@ -1,3 +1,16 @@
+## Maven Dependency
+To use cucumber-jvm-groovy in your project, add the following dependency to your `pom.xml`:
+
+```xml
+<dependency>
+    <groupId>io.cucumber</groupId>
+    <artifactId>cucumber-groovy</artifactId>
+    <version>2.0.1</version>
+    <scope>test</scope>
+</dependency>
+```
+
+
 ## Running from the Command Line Interface (CLI)
 
 To run the test from the cli call:
