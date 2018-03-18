@@ -1,4 +1,7 @@
 ## Maven Dependency
+
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/io.cucumber/cucumber-groovy/badge.svg)](https://maven-badges.herokuapp.com/maven-central/io.cucumber/cucumber-groovy)
+
 To use cucumber-jvm-groovy in your project, add the following dependency to your `pom.xml`:
 
 ```xml
