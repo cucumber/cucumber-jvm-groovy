@@ -1,11 +1,15 @@
 package cucumber.runtime.groovy;
 
 import groovy.lang.Closure;
+import io.cucumber.stepexpression.TypeRegistry;
 import org.codehaus.groovy.runtime.MethodClosure;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.runners.MockitoJUnitRunner;
+
+import java.util.Locale;
+import java.util.regex.Pattern;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.fail;
@@ -17,7 +21,7 @@ public class GroovyStackTraceTest {
     @Before
     public void setUp() throws Throwable {
         Closure body = new MethodClosure("the owner", "length");
-        groovyStepDefinition = new GroovyStepDefinition(null, 0, body, null, new ExceptionThrowingBackend());
+        groovyStepDefinition = new GroovyStepDefinition("", 0, body, null, new ExceptionThrowingBackend(), new TypeRegistry(Locale.ENGLISH));
     }
 
     @Test
@@ -36,7 +40,7 @@ public class GroovyStackTraceTest {
 
     private static class ExceptionThrowingBackend extends GroovyBackend {
         public ExceptionThrowingBackend() {
-            super(null);
+            super(null, new TypeRegistry(Locale.ENGLISH));
         }
 
         @Override

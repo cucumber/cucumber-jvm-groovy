@@ -4,7 +4,6 @@ import cucumber.runtime.Backend;
 import cucumber.runtime.ClassFinder;
 import cucumber.runtime.CucumberException;
 import cucumber.runtime.Glue;
-import cucumber.runtime.UnreportedStepExecutor;
 import cucumber.runtime.TagPredicate;
 import cucumber.runtime.io.Resource;
 import cucumber.runtime.io.ResourceLoader;
@@ -16,6 +15,8 @@ import groovy.lang.Binding;
 import groovy.lang.Closure;
 import groovy.lang.GroovyShell;
 import groovy.lang.Script;
+import io.cucumber.stepexpression.TypeRegistry;
+import io.cucumber.stepexpression.TypeResolver;
 import org.codehaus.groovy.control.CompilerConfiguration;
 import org.codehaus.groovy.runtime.DefaultGroovyMethods;
 import org.codehaus.groovy.runtime.InvokerInvocationException;
@@ -34,11 +35,11 @@ import static cucumber.runtime.io.MultiLoader.packageName;
 public class GroovyBackend implements Backend {
     public static ThreadLocal<GroovyBackend> instanceThreadLocal = new ThreadLocal<GroovyBackend>();
     private final Set<Class> scripts = new HashSet<Class>();
-    private final SnippetGenerator snippetGenerator = new SnippetGenerator(new GroovySnippet());
+    private  SnippetGenerator snippetGenerator;
     private final ResourceLoader resourceLoader;
     private final GroovyShell shell;
     private final ClassFinder classFinder;
-
+    private TypeRegistry typeRegistry;
     private Collection<Closure> worldClosures = new LinkedList<Closure>();
     private GroovyWorld world;
     private Glue glue;
@@ -54,8 +55,10 @@ public class GroovyBackend implements Backend {
         return new GroovyShell(Thread.currentThread().getContextClassLoader(), new Binding(), compilerConfig);
     }
 
-    public GroovyBackend(ResourceLoader resourceLoader) {
+    public GroovyBackend(ResourceLoader resourceLoader, TypeRegistry typeRegistry) {
         this(createShell(), resourceLoader);
+        this.typeRegistry=typeRegistry;
+        this.snippetGenerator = new SnippetGenerator(new GroovySnippet(),typeRegistry.parameterTypeRegistry());
     }
 
     public GroovyBackend(GroovyShell shell, ResourceLoader resourceLoader) {
@@ -97,10 +100,6 @@ public class GroovyBackend implements Backend {
         }
     }
 
-    @Override
-    public void setUnreportedStepExecutor(UnreportedStepExecutor executor) {
-        //Not used yet
-    }
 
     @Override
     public void buildWorld() {
@@ -132,8 +131,8 @@ public class GroovyBackend implements Backend {
         return snippetGenerator.getSnippet(step, keyword, null);
     }
 
-    public void addStepDefinition(Pattern regexp, long timeoutMillis, Closure body) {
-        glue.addStepDefinition(new GroovyStepDefinition(regexp, timeoutMillis, body, currentLocation(), this));
+    public void addStepDefinition(String regexp, long timeoutMillis, Closure body) {
+        glue.addStepDefinition(new GroovyStepDefinition(regexp, timeoutMillis, body, currentLocation(), this, typeRegistry));
     }
 
     public void registerWorld(Closure closure) {
@@ -146,6 +145,14 @@ public class GroovyBackend implements Backend {
 
     public void addAfterHook(TagPredicate tagPredicate, long timeoutMillis, int order, Closure body) {
         glue.addAfterHook(new GroovyHookDefinition(tagPredicate, timeoutMillis, order, body, currentLocation(), this));
+    }
+
+    public void addBeforeStepHook(TagPredicate tagPredicate, long timeoutMillis, int order, Closure body) {
+        glue.addBeforeStepHook(new GroovyHookDefinition(tagPredicate, timeoutMillis, order, body, currentLocation(), this));
+    }
+
+    public void addAfterStepHook(TagPredicate tagPredicate, long timeoutMillis, int order, Closure body) {
+        glue.addAfterStepHook(new GroovyHookDefinition(tagPredicate, timeoutMillis, order, body, currentLocation(), this));
     }
 
     public void invoke(Closure body, Object[] args) throws Throwable {

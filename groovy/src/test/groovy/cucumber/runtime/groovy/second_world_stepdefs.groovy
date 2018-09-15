@@ -1,5 +1,9 @@
 package cucumber.runtime.groovy
 
+import io.cucumber.datatable.DataTable
+
+import javax.xml.crypto.Data
+
 this.metaClass.mixin(cucumber.api.groovy.EN)
 this.metaClass.mixin(cucumber.api.groovy.Hooks)
 
@@ -31,11 +35,11 @@ When(~/^world method call$/) {  ->
     aMethod()
 }
 
-When(~/^world method call:$/) { table ->
+When(~/^world method call:$/) { DataTable table ->
     aMethod(table.asList(Integer))
 }
 
-Then(~/^world method call is:$/) { table ->
+Then(~/^world method call is:$/) { DataTable table ->
     methodArgs == table.asList(Integer)
 }
 

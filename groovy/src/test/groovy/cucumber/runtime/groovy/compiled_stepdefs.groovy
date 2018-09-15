@@ -1,5 +1,7 @@
 package cucumber.runtime.groovy
 
+import io.cucumber.datatable.DataTable
+
 import static groovy.util.GroovyTestCase.assertEquals
 
 this.metaClass.mixin(cucumber.api.groovy.EN)
@@ -16,12 +18,12 @@ Given(~'^I have (\\d+) apples in my belly') { int apples ->
 Given(~'^a big basket with cukes') { ->
 }
 
-Given(~'^the following table:$') { table ->
+Given(~'^the following table:$') { DataTable table ->
     things = table.asList(Thing)
     assertEquals("Cucumber-JVM", things[1].name)
 }
 
-Given(~'^this should be converted to a list:(.+)$') { List list ->
+Given('this should be converted to a list:{list}') { List list ->
     assertEquals(3, list.size())
     assertEquals("Cucumber-JVM", list.get(0))
     assertEquals("Cucumber", list.get(1))
