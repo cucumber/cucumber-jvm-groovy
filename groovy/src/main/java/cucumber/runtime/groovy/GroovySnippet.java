@@ -38,7 +38,7 @@ public class GroovySnippet implements Snippet {
 
     @Override
     public String template() {
-        return "{0}(~/{1}/) '{' {3}->\n" +
+        return "{0}(/{1}/) '{' {3} ->\n" +
                 "    // {4}\n" +
                 "    throw new PendingException()\n" +
                 "'}'\n";
