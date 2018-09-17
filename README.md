@@ -2,7 +2,9 @@
 
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/io.cucumber/cucumber-groovy/badge.svg)](https://maven-badges.herokuapp.com/maven-central/io.cucumber/cucumber-groovy)
 
-To use cucumber-jvm-groovy in your project, add the following dependency to your `pom.xml`:
+To use cucumber-jvm-groovy in your project, add the following dependency:
+
+- If using maven add to your `pom.xml`:
 
 ```xml
 <dependency>
@@ -13,6 +15,10 @@ To use cucumber-jvm-groovy in your project, add the following dependency to your
 </dependency>
 ```
 
+- If using garadle add to your `build.gradle`:
+```
+testCompile group: 'io.cucumber', name:'cucumber-jvm', version: '3.0.2'
+```
 
 ## Running from the Command Line Interface (CLI)
 
