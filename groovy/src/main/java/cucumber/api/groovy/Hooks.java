@@ -28,7 +28,7 @@ public class Hooks {
      * @param args the hook parameters
      */
     public static void Before(Object... args) {
-        addHook(args, true);
+        addHook(args, true, false);
     }
 
     /**
@@ -43,10 +43,18 @@ public class Hooks {
      * @param args the hook parameters
      */
     public static void After(Object... args) {
-        addHook(args, false);
+        addHook(args, false, false);
     }
 
-    private static void addHook(Object[] tagsExpressionsAndBody, boolean before) {
+    public static void AfterStep(Object... args) {
+        addHook(args, false, true);
+    }
+
+    public static void BeforeStep(Object... args) {
+        addHook(args, true, true);
+    }
+
+    private static void addHook(Object[] tagsExpressionsAndBody, boolean before, boolean forStep) {
         long timeoutMillis = DEFAULT_TIMEOUT;
         int order = DEFAULT_ORDER;
         boolean timeoutSet = false;
@@ -84,9 +92,17 @@ public class Hooks {
 
         TagPredicate tagPredicate = new TagPredicate(tagExpressions);
         if (before) {
-            GroovyBackend.getInstance().addBeforeHook(tagPredicate, timeoutMillis, order, body);
+            if(forStep) {
+                GroovyBackend.getInstance().addBeforeStepHook(tagPredicate, timeoutMillis, order, body);
+            }else{
+                GroovyBackend.getInstance().addBeforeHook(tagPredicate, timeoutMillis, order, body);
+            }
         } else {
-            GroovyBackend.getInstance().addAfterHook(tagPredicate, timeoutMillis, order, body);
+            if(forStep) {
+                GroovyBackend.getInstance().addAfterStepHook(tagPredicate, timeoutMillis, order, body);
+            }else{
+                GroovyBackend.getInstance().addAfterHook(tagPredicate, timeoutMillis, order, body);
+            }
         }
     }
 }

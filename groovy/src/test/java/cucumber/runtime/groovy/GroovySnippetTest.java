@@ -8,10 +8,12 @@ import gherkin.pickles.PickleRow;
 import gherkin.pickles.PickleStep;
 import gherkin.pickles.PickleString;
 import gherkin.pickles.PickleTable;
+import io.cucumber.stepexpression.TypeRegistry;
 import org.junit.Test;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Locale;
 
 import static java.util.Arrays.asList;
 import static org.junit.Assert.assertEquals;
@@ -24,7 +26,7 @@ public class GroovySnippetTest {
     @Test
     public void generatesPlainSnippet() {
         String expected = "" +
-                "Given(~/^I have (\\d+) cukes in my \"([^\"]*)\" belly$/) { int arg1, String arg2 ->\n" +
+                "Given(/I have {int} cukes in my {string} belly/) { Integer int1, String string ->\n" +
                 "    // Write code here that turns the phrase above into concrete actions\n" +
                 "    throw new PendingException()\n" +
                 "}\n";
@@ -34,7 +36,7 @@ public class GroovySnippetTest {
     @Test
     public void generatesCopyPasteReadyStepSnippetForNumberParameters() throws Exception {
         String expected = "" +
-                "Given(~/^before (\\d+) after$/) { int arg1 ->\n" +
+                "Given(/before {int} after/) { Integer int1 ->\n" +
                 "    // Write code here that turns the phrase above into concrete actions\n" +
                 "    throw new PendingException()\n" +
                 "}\n";
@@ -45,7 +47,7 @@ public class GroovySnippetTest {
     @Test
     public void generatesCopyPasteReadySnippetWhenStepHasIllegalJavaIdentifierChars() {
         String expected = "" +
-                "Given(~/^I have (\\d+) cukes in: my \"([^\"]*)\" red-belly!$/) { int arg1, String arg2 ->\n" +
+                "Given(/I have {int} cukes in: my {string} red-belly!/) { Integer int1, String string ->\n" +
                 "    // Write code here that turns the phrase above into concrete actions\n" +
                 "    throw new PendingException()\n" +
                 "}\n";
@@ -56,7 +58,7 @@ public class GroovySnippetTest {
     @Test
     public void generatesCopyPasteReadySnippetWhenStepHasIntegersInsideStringParameter() {
         String expected = "" +
-                "Given(~/^the DI system receives a message saying \"([^\"]*)\"$/) { String arg1 ->\n" +
+                "Given(/the DI system receives a message saying {string}/) { String string ->\n" +
                 "    // Write code here that turns the phrase above into concrete actions\n" +
                 "    throw new PendingException()\n" +
                 "}\n";
@@ -66,7 +68,7 @@ public class GroovySnippetTest {
     @Test
     public void generatesSnippetWithEscapedDollarSigns() {
         String expected = "" +
-                "Given(~/^I have \\$(\\d+)$/) { int arg1 ->\n" +
+                "Given(/I have ${int}/) { Integer int1 ->\n" +
                 "    // Write code here that turns the phrase above into concrete actions\n" +
                 "    throw new PendingException()\n" +
                 "}\n";
@@ -76,7 +78,7 @@ public class GroovySnippetTest {
     @Test
     public void generatesSnippetWithEscapedParentheses() {
         String expected = "" +
-                "Given(~/^I have (\\d+) cukes \\(maybe more\\)$/) { int arg1 ->\n" +
+                "Given(/I have {int} cukes \\\\(maybe more)/) { Integer int1 ->\n" +
                 "    // Write code here that turns the phrase above into concrete actions\n" +
                 "    throw new PendingException()\n" +
                 "}\n";
@@ -86,7 +88,7 @@ public class GroovySnippetTest {
     @Test
     public void generatesSnippetWithEscapedBrackets() {
         String expected = "" +
-                "Given(~/^I have (\\d+) cukes \\[maybe more\\]$/) { int arg1 ->\n" +
+                "Given(/I have {int} cukes [maybe more]/) { Integer int1 ->\n" +
                 "    // Write code here that turns the phrase above into concrete actions\n" +
                 "    throw new PendingException()\n" +
                 "}\n";
@@ -96,7 +98,7 @@ public class GroovySnippetTest {
     @Test
     public void generatesSnippetWithDocString() {
         String expected = "" +
-                "Given(~/^I have:$/) { String arg1 ->\n" +
+                "Given(/I have:/) { String docString ->\n" +
                 "    // Write code here that turns the phrase above into concrete actions\n" +
                 "    throw new PendingException()\n" +
                 "}\n";
@@ -106,7 +108,7 @@ public class GroovySnippetTest {
     @Test
     public void generatesSnippetWithDataTable() {
         String expected = "" +
-                "Given(~/^I have:$/) { DataTable arg1 ->\n" +
+                "Given(/I have:/) { io.cucumber.datatable.DataTable dataTable ->\n" +
                 "    // Write code here that turns the phrase above into concrete actions\n" +
                 "    throw new PendingException()\n" +
                 "}\n";
@@ -117,7 +119,7 @@ public class GroovySnippetTest {
     @Test
     public void generateSnippetWithEscapedEscapeCharacter() {
         String expected = "" +
-                "Given(~/^I have (\\d+) cukes in my belly$/) { int arg1 ->\n" +
+                "Given(/I have {int} cukes in my belly/) { Integer int1 ->\n" +
                 "    // Write code here that turns the phrase above into concrete actions\n" +
                 "    throw new PendingException()\n" +
                 "}\n";
@@ -127,16 +129,16 @@ public class GroovySnippetTest {
 
     private String snippetFor(String name) {
         PickleStep step = new PickleStep(name, NO_ARGUMENTS, NO_LOCATIONS);
-        return new SnippetGenerator(new GroovySnippet()).getSnippet(step, "Given", null);
+        return new SnippetGenerator(new GroovySnippet(),  new TypeRegistry(Locale.ENGLISH).parameterTypeRegistry()).getSnippet(step, "Given", null);
     }
 
     private String snippetForDocString(String name, PickleString docString) {
         PickleStep step = new PickleStep(name, asList((Argument) docString), NO_LOCATIONS);
-        return new SnippetGenerator(new GroovySnippet()).getSnippet(step, "Given", null);
+        return new SnippetGenerator(new GroovySnippet(),new TypeRegistry(Locale.ENGLISH).parameterTypeRegistry()).getSnippet(step, "Given", null);
     }
 
     private String snippetForDataTable(String name, PickleTable dataTable) {
         PickleStep step = new PickleStep(name, asList((Argument) dataTable), NO_LOCATIONS);
-        return new SnippetGenerator(new GroovySnippet()).getSnippet(step, "Given", null);
+        return new SnippetGenerator(new GroovySnippet(),new TypeRegistry(Locale.ENGLISH).parameterTypeRegistry()).getSnippet(step, "Given", null);
     }
 }

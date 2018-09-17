@@ -1,42 +1,47 @@
 package cucumber.runtime.groovy;
 
-import cucumber.runtime.Argument;
-import cucumber.runtime.JdkPatternArgumentMatcher;
-import cucumber.runtime.ParameterInfo;
 import cucumber.runtime.StepDefinition;
 import cucumber.runtime.Timeout;
 import gherkin.pickles.PickleStep;
 import groovy.lang.Closure;
+import io.cucumber.stepexpression.*;
 import org.codehaus.groovy.runtime.StackTraceUtils;
 
-import java.lang.reflect.Type;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
 
 public class GroovyStepDefinition implements StepDefinition {
-    private final Pattern pattern;
+    private final String pattern;
     private final long timeoutMillis;
     private final Closure body;
     private final StackTraceElement location;
     private final GroovyBackend backend;
-
-    private final JdkPatternArgumentMatcher argumentMatcher;
+    private final StepExpression expression;
     private final List<ParameterInfo> parameterInfos;
 
-    public GroovyStepDefinition(Pattern pattern, long timeoutMillis, Closure body, StackTraceElement location, GroovyBackend backend) {
+    public GroovyStepDefinition(String pattern, long timeoutMillis, Closure body, StackTraceElement location, GroovyBackend backend, TypeRegistry typeRegistry) {
         this.pattern = pattern;
         this.timeoutMillis = timeoutMillis;
         this.backend = backend;
         this.body = body;
         this.location = location;
-
-        this.argumentMatcher = new JdkPatternArgumentMatcher(pattern);
         this.parameterInfos = getParameterInfos();
+        this.expression = createExpression(pattern, typeRegistry);
     }
 
+    private StepExpression createExpression(String expression, TypeRegistry typeRegistry) {
+        if (parameterInfos.isEmpty()) {
+            return new StepExpressionFactory(typeRegistry).createExpression(expression);
+        } else {
+            ParameterInfo parameterInfo = parameterInfos.get(parameterInfos.size() - 1);
+            return new StepExpressionFactory(typeRegistry).createExpression(expression, parameterInfo.getType(), parameterInfo.isTransposed());
+        }
+    }
+
+    @Override
     public List<Argument> matchedArguments(PickleStep step) {
-        return argumentMatcher.argumentsFrom(step.getText());
+        ArgumentMatcher argumentMatcher = new ExpressionArgumentMatcher(expression);
+        return argumentMatcher.argumentsFrom(step);
     }
 
     public String getLocation(boolean detail) {
@@ -46,11 +51,6 @@ public class GroovyStepDefinition implements StepDefinition {
     @Override
     public Integer getParameterCount() {
         return parameterInfos.size();
-    }
-
-    @Override
-    public ParameterInfo getParameterType(int n, Type argumentType) {
-        return parameterInfos.get(n);
     }
 
     private List<ParameterInfo> getParameterInfos() {
@@ -67,7 +67,7 @@ public class GroovyStepDefinition implements StepDefinition {
                     return null;
                 }
             }, timeoutMillis);
-        } catch(Throwable e) {
+        } catch (Throwable e) {
             throw StackTraceUtils.deepSanitize(e);
         }
     }
@@ -78,7 +78,7 @@ public class GroovyStepDefinition implements StepDefinition {
 
     @Override
     public String getPattern() {
-        return pattern.pattern();
+        return expression.getSource();
     }
 
     @Override

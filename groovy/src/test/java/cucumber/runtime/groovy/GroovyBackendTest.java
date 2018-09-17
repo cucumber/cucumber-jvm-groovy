@@ -1,12 +1,15 @@
 package cucumber.runtime.groovy;
 
 import cucumber.runtime.io.ResourceLoader;
+import io.cucumber.stepexpression.TypeRegistry;
 import org.codehaus.groovy.runtime.MethodClosure;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
+
+import java.util.Locale;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
@@ -20,7 +23,7 @@ public class GroovyBackendTest {
 
     @Before
     public void setUp() throws Exception {
-        backend = new GroovyBackend(resourceLoader);
+        backend = new GroovyBackend(resourceLoader, new TypeRegistry(Locale.ENGLISH));
     }
 
     @Test
