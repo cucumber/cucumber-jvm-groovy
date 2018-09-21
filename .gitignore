@@ -1,2 +1,4 @@
 .idea
-cucumber-jvm-groovy.iml
+*.iml
+target
+
