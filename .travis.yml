@@ -1,21 +1,33 @@
 language: java
 sudo: false
-
 cache:
   directories:
   - "$HOME/.m2"
-
 jobs:
   include:
   - stage: test
     jdk: oraclejdk8
     script: mvn -q verify
+    after_success:
+    - mvn clean cobertura:cobertura coveralls:report -P coveralls.io
   - jdk: oraclejdk8
     env: JAVADOC=true
     script:
     - mvn clean verify -DskipTests=true
     - mvn javadoc:aggregate
-
+  - stage: deploy
+    jdk: oraclejdk8
+    script:
+    - "./continuous-deployment/before-deploy.sh"
+    - "./continuous-deployment/deploy.sh"
+    on:
+      repo: cucumber/cucumber-jvm-groovy
 branches:
   only:
   - master
+env:
+  global:
+  - secure: sBznwfTiQTPcVlxfz+obygTSFCJ1v3jj9reL40wBDuhx6m86lSJq4Br79ay26LzasfmkaDY1rehxrdtAq8IzscBTPc7zDLqw7o5hqWF5FP/hfl2VidTAu0u//3HDPK2nXYQKplS5ua+ePLN2r/4aDhd9q2emHSERg5jsL2+PgpTzzecKAlAwqHwDtKKK5k6+dpN9GltTv5joFwSAtjnSqDOfjog5XmfzHzMzd7IVpv9QZwwC4DH9Fc564dxUyHMYy6FJMPvlsAioHHdm5h9sYk+i4dHQ6pUmNvV9wEXlkjL3Cdyf2ycDLHpBox4LdV1yvqJOZa6cXVhee2ID4I1gibqjtuo8E1qCn/MFzI/pLeO2nVZqR/OaLVgpXiojVMijcjF4SAgnfmfi8QPOMmLKLaI6H+W99hIz9CnEnkJVIZPyMg/Enu/lwvhAk4fxa28uBwfXNeKytND/IBjtkVq5/rF6YC2bXWu+4nXr+VMgLFejHg8vir4LEmfVHAXQQ/R6PG6wfFZjUmDnXQf8I8WG9nYL3gSO58ArM30at6hI67i1MHIWrzk63nbigG3ZGUF6r2aboNWhXOWdS3Fxnl6aSEEtDoo/0mQddCidzpCZSocw7HGSHItdSIsxCNk8748CM1ab3p2teEkLOynEPOx3j3LW/CQRdN9d0NRhWhUxciU=
+  - secure: BSkC28D2eGgq3lwCnxeMUr2Q/23oyR1dWcTrcP1tkGIK88IEEl6E493hy5xaV8SihT3c8LQ0tsu6oGyIyBoQtbSojwOT3JtzPE6l+MJGFSExr4Ulul7f/JI+c5iBTLU7k07aC7yMfTT1wPlpujKGqvQqiYXRCFXFHKXzNQahfbQP9Zf0D31GCeRupwnqoVMdI9TYWMEgeiSSqc7OmugLqs2Uof0HAnYH+6UuZ/IDvZ/EISeXOu3J5EqbKWoI75eKkDhjo+itO3U6Q/PvNrO72HHVkOzpeJN2+8Ly8hU3MIIrPhowThRdnJjLtK2sq3InrC+n1sRB/z9FUvTQXQJUBjstCr7WjkWf28atUcao9TC5q8vjhoEO1Inq8sF7pE0c7PGP6X8PEJVy4rR0HFh9VdDpcRgNlslhe2I3HYUfM4Mv18xwkrRqZk/4OVe5ESG61lrYzeI61uptjeKnS0IfO/9RVOY8ZMJ+UQKBBttFePZL5f61VCp2kHVdgWD4wxF3+0mSLZbPKMkFJpocaCtw/EmsFa6PKUSDliduIA0cOJxuc8XNnWwwt6l0O4gVKl7bfxKZb4/kJKM3ZAMo6HcZ/sCx636AexoHfzkhkpOdVrYY52i/N+KcX3x/F3dsvd9s7Mikc2Dcdlt0jqMerFt5ddlvcqs1S1TkoYXkk/LQW3s=
+  - secure: kdEbojxR9/yskTVByRctuJvBmH2+dgq4+ZSR+wOdjmvNQ4QdVDlv5RR//SOQO9nePf8aCMs+lIFdUSEZAjIhK3PtUyST8583U0vZDeYLbXHdcbrLeMBV9tX8xGdTdIA5rcDmd1695JoRUaufXwD3ely7WUg5oXpLMVWBi+prhOSFiMXXb7TFp04HBam1u+XnM/F9Ez5PUQ6eIqWORPCXzIxb4CUnoFhU/9c33Ioj9JiAAyAs5DzN6GMsVe1koSnXxrwJEgH9KLD8Cqd7rHKrJPupa745vw02dniU31rVrKndnBJ7LDPAR9KN1Hm5Zy7CjaKgcOxlgWGZWUpZ9lnn6yHgTx5IEYqogz5WA4dmCszArfXznj506yuxn4EogmzDR07jbV5v89uSUXbiQ5EfPItE10lo91bsZoG9vAoGMXL/IJdgbgR9NfRwVFzFX+8VtbUDErz5PWuSdlSNhsAmy5e5hJtj0iUcHqxGvwkdNbZdT0NJKBcBxDkCKz/HfNx/KAvpYYcVQk8VZ2glE2Goh7QPEFWjUvVIn/HTGUs72oy8lzpxm1lw9XUKo9u3Hf0VN0w8kt1NNw7FKVtgaqoPkdkqKon/acbzxBzeuJpPem/Hvn6srVwyqf2HFNWF46i/mltXrqn1hUFGnAPiLmTlqcGd26AUXx5s+t47AuqH3cA=
+  - secure: ntofDaaW0UeBVlntZRR09JCkvQkvSQ+3MgNYmHc9Ehl4zheHMQDndw0F1tjvGQ5skBpyUdjv2TNxeWTc2R3Vgy/WlQKu4SfhKKHOlsCN4u9MYPBQEyDgBTCr+EjQoKC9sSMrFrrmPvZa9YxVLpVCYghnrR2CkTNVk1OmXixw/o9rSRy6g6+a+XNwYiq82eUOls5oGhyVqBOWNSN0ftL+2e66WqrVg1jekCenoSOcTLpQw6LuYMNTkR3TSml7dhj96lZabDGpvkfeGkBsAThGSKNTWlnnPoKxWlGRBPklwTsXhSi1xrXbObOwM2uGlRtFyfNOIAIBsqgyfs2lParTyGYQ9EfheV2IQp0lq4y/SziGLWoj8Cm4A4FsBx2XzcpednhNup9Ri0ex1ce2NxkJghJaY+POR2ArGaGT1kad9iGRq/BPFuM9aw0h4EY/JXwkHnabTT97Io7U3fFF9Eu3RxUlLDRO9UguYaMv6c/E8mUR5IdUYKFxbfGdSKbTaA9CsDLYGQTJFWli/YirZQVyzMxc/zscO37B5nhgsA6G2BrQlWHQEnqqYAPuhLExRaZFPDSJA5o0f1QjUKYo0NbpBctR7Ft3XPKhUmARHGZ8S+46AONWf7fXRiGPeF8kLrq4PSD4CqGxYEiTdAy7GY+IoJ+mU9hgelXyPLwYgcNaIlU=
