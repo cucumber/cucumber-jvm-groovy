@@ -5,6 +5,7 @@
     <version>3.0.2-SNAPSHOT</version>
     <packaging>pom</packaging>
     <name>Cucumber-JVM: Groovy</name>
+    <description>Cucumber for Groovy</description>
     <url>http://cucumber.io/</url>
 
     <developers>
