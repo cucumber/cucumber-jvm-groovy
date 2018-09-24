@@ -3,7 +3,7 @@ package cucumber.runtime.groovy;
 import cucumber.api.Scenario;
 import cucumber.runtime.HookDefinition;
 import cucumber.runtime.Timeout;
-import cucumber.runtime.TagPredicate;
+import cucumber.runtime.filter.TagPredicate;
 import gherkin.pickles.PickleTag;
 import groovy.lang.Closure;
 

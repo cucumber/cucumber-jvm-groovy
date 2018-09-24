@@ -58,7 +58,8 @@ public class GroovyStepDefinition implements StepDefinition {
         return ParameterInfo.fromTypes(parameterTypes);
     }
 
-    public void execute(String language, final Object[] args) throws Throwable {
+    @Override
+    public void execute(final Object[] args) throws Throwable {
         try {
             Timeout.timeout(new Timeout.Callback<Object>() {
                 @Override

@@ -1,7 +1,7 @@
 package cucumber.api.groovy;
 
 import cucumber.runtime.CucumberException;
-import cucumber.runtime.TagPredicate;
+import cucumber.runtime.filter.TagPredicate;
 import cucumber.runtime.groovy.GroovyBackend;
 import groovy.lang.Closure;
 

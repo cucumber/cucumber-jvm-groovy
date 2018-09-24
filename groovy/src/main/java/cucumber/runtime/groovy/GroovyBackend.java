@@ -4,7 +4,7 @@ import cucumber.runtime.Backend;
 import cucumber.runtime.ClassFinder;
 import cucumber.runtime.CucumberException;
 import cucumber.runtime.Glue;
-import cucumber.runtime.TagPredicate;
+import cucumber.runtime.filter.TagPredicate;
 import cucumber.runtime.io.Resource;
 import cucumber.runtime.io.ResourceLoader;
 import cucumber.runtime.io.ResourceLoaderClassFinder;
@@ -16,7 +16,6 @@ import groovy.lang.Closure;
 import groovy.lang.GroovyShell;
 import groovy.lang.Script;
 import io.cucumber.stepexpression.TypeRegistry;
-import io.cucumber.stepexpression.TypeResolver;
 import org.codehaus.groovy.control.CompilerConfiguration;
 import org.codehaus.groovy.runtime.DefaultGroovyMethods;
 import org.codehaus.groovy.runtime.InvokerInvocationException;
@@ -28,7 +27,6 @@ import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
-import java.util.regex.Pattern;
 
 import static cucumber.runtime.io.MultiLoader.packageName;
 
@@ -127,7 +125,7 @@ public class GroovyBackend implements Backend {
     }
 
     @Override
-    public String getSnippet(PickleStep step, String keyword, FunctionNameGenerator functionNameGenerator) {
+    public List<String> getSnippet(PickleStep step, String keyword, FunctionNameGenerator functionNameGenerator) {
         return snippetGenerator.getSnippet(step, keyword, null);
     }
 

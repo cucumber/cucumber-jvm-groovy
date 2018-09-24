@@ -27,7 +27,7 @@ public class GroovyStackTraceTest {
     @Test
     public void should_sanitize_stacktrace() throws Throwable {
         try {
-            groovyStepDefinition.execute(null, new Object[0]);
+            groovyStepDefinition.execute(new Object[0]);
             fail("step definition didn't throw an exception");
         } catch(Throwable thrown) {
             for (StackTraceElement stackTraceElement : thrown.getStackTrace()) {
