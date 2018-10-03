@@ -53,17 +53,23 @@ public class GroovyBackend implements Backend {
         return new GroovyShell(Thread.currentThread().getContextClassLoader(), new Binding(), compilerConfig);
     }
 
+    /**
+     * The constructor called by reflection by default.
+     *
+     * @param resourceLoader
+     * @param typeRegistry
+     */
     public GroovyBackend(ResourceLoader resourceLoader, TypeRegistry typeRegistry) {
-        this(createShell(), resourceLoader);
-        this.typeRegistry=typeRegistry;
-        this.snippetGenerator = new SnippetGenerator(new GroovySnippet(),typeRegistry.parameterTypeRegistry());
+        this(createShell(), resourceLoader, typeRegistry);
     }
 
-    public GroovyBackend(GroovyShell shell, ResourceLoader resourceLoader) {
+    public GroovyBackend(GroovyShell shell, ResourceLoader resourceLoader, TypeRegistry typeRegistry) {
         this.shell = shell;
         this.resourceLoader = resourceLoader;
+        this.typeRegistry=typeRegistry;
         instanceThreadLocal.set(this);
         classFinder = new ResourceLoaderClassFinder(resourceLoader, shell.getClassLoader());
+        this.snippetGenerator = new SnippetGenerator(new GroovySnippet(),typeRegistry.parameterTypeRegistry());
     }
 
     @Override
