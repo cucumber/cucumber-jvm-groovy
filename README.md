@@ -11,7 +11,7 @@ To use cucumber-jvm-groovy in your project, add the following dependency:
 <dependency>
     <groupId>io.cucumber</groupId>
     <artifactId>cucumber-groovy</artifactId>
-    <version>4.0.0</version>
+    <version>4.0.1</version>
     <scope>test</scope>
 </dependency>
 ```
