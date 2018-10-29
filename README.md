@@ -11,14 +11,14 @@ To use cucumber-jvm-groovy in your project, add the following dependency:
 <dependency>
     <groupId>io.cucumber</groupId>
     <artifactId>cucumber-groovy</artifactId>
-    <version>4.1.0</version>
+    <version>4.2.0</version>
     <scope>test</scope>
 </dependency>
 ```
 
 - If using garadle add to your `build.gradle`:
 ```
-testCompile group: 'io.cucumber', name:'cucumber-groovy', version: '4.1.0'
+testCompile group: 'io.cucumber', name:'cucumber-groovy', version: '4.2.0'
 ```
 
 ## Running from the Command Line Interface (CLI)
@@ -35,9 +35,4 @@ The test uses a mix of compiled and interpreted step definitions which makes the
 
 1. `-cp target/test-classes;./bin/cucumber-groovy-shaded.jar` tells groovy where to find the compiled class files and needed dependencies for `TypeRegistryConfigurer` descendants.
 2. `--glue classpath:cucumber/runtime/groovy` or `--glue classpath:cucumber.runtime.groovy --glue src/test/resources` is required so that cucumber finds the compiled step definitions
-3. the last parameter provides a feature or a path with features
-
-This demonstrates that the files in the `bin` directory (`cucumber-jvm.groovy`, `cucumber-groovy.jar` and `cucumber-core.jar` 
-are a completely standalone execution environment. 
-
-TODO: Figure out the best way to package and publish this as a "groovy package". Maybe just a zip file?
+3. The last parameter provides a feature or a path with features
