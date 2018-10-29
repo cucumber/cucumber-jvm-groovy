@@ -7,8 +7,8 @@ import groovy.lang.Closure;
 import io.cucumber.stepexpression.*;
 import org.codehaus.groovy.runtime.StackTraceUtils;
 
+import java.lang.reflect.Type;
 import java.util.List;
-import java.util.regex.Pattern;
 
 public class GroovyStepDefinition implements StepDefinition {
     private final String pattern;
@@ -41,7 +41,11 @@ public class GroovyStepDefinition implements StepDefinition {
     @Override
     public List<Argument> matchedArguments(PickleStep step) {
         ArgumentMatcher argumentMatcher = new ExpressionArgumentMatcher(expression);
-        return argumentMatcher.argumentsFrom(step);
+        Type[] types = new Type[parameterInfos.size()];
+        for (int i = 0; i < types.length; i++) {
+            types[i] = parameterInfos.get(i).getType();
+        }
+        return argumentMatcher.argumentsFrom(step, types);
     }
 
     public String getLocation(boolean detail) {
@@ -61,12 +65,9 @@ public class GroovyStepDefinition implements StepDefinition {
     @Override
     public void execute(final Object[] args) throws Throwable {
         try {
-            Timeout.timeout(new Timeout.Callback<Object>() {
-                @Override
-                public Object call() throws Throwable {
-                    backend.invoke(body, args);
-                    return null;
-                }
+            Timeout.timeout(() -> {
+                backend.invoke(body, args);
+                return null;
             }, timeoutMillis);
         } catch (Throwable e) {
             throw StackTraceUtils.deepSanitize(e);

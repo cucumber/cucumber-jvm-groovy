@@ -31,6 +31,7 @@ Feature: Cucumber Runner Rocks
       """
       1971-10-04
       """
+    And anonymous date is 2011-01-19
 
 
   Scenario: Call a method or property from second world

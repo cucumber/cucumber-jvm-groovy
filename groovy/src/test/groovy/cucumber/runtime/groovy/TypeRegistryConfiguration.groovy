@@ -2,11 +2,16 @@ package cucumber.runtime.groovy
 
 import cucumber.api.TypeRegistry
 import cucumber.api.TypeRegistryConfigurer
+import io.cucumber.cucumberexpressions.ParameterByTypeTransformer
 import io.cucumber.cucumberexpressions.ParameterType
 import io.cucumber.cucumberexpressions.Transformer
 import io.cucumber.datatable.DataTableType
+import io.cucumber.datatable.TableCellByTypeTransformer
+import io.cucumber.datatable.TableEntryByTypeTransformer
 import io.cucumber.datatable.TableEntryTransformer
+import io.cucumber.datatable.dependency.com.fasterxml.jackson.databind.ObjectMapper
 
+import java.lang.reflect.Type
 import java.text.SimpleDateFormat
 
 import static java.util.Locale.ENGLISH
@@ -20,6 +25,11 @@ class TypeRegistryConfiguration implements TypeRegistryConfigurer {
 
     @Override
     void configureTypeRegistry(TypeRegistry typeRegistry) {
+        DefaultTransformer defaultTransformer = new DefaultTransformer()
+        typeRegistry.setDefaultDataTableCellTransformer(defaultTransformer)
+        typeRegistry.setDefaultDataTableEntryTransformer(defaultTransformer)
+        typeRegistry.setDefaultParameterTransformer(defaultTransformer)
+
        final TableEntryTransformer<Thing> transformer =new TableEntryTransformer<>() {
            @Override
            Thing transform(Map<String, String> tableEntry) {
@@ -58,5 +68,24 @@ class TypeRegistryConfiguration implements TypeRegistryConfigurer {
                 List.class,
                 listTransformer
         ))
+    }
+
+    private class DefaultTransformer implements ParameterByTypeTransformer, TableEntryByTypeTransformer, TableCellByTypeTransformer {
+        ObjectMapper objectMapper = new ObjectMapper()
+
+        @Override
+         Object transform(String s, Type type) {
+            return objectMapper.convertValue(s, objectMapper.constructType(type))
+        }
+
+        @Override
+         <T> T transform(Map<String, String> map, Class<T> aClass, TableCellByTypeTransformer tableCellByTypeTransformer) {
+            return objectMapper.convertValue(map, aClass)
+        }
+
+        @Override
+         <T> T transform(String s, Class<T> aClass) {
+            return objectMapper.convertValue(s, aClass)
+        }
     }
 }

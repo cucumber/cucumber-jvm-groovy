@@ -61,6 +61,6 @@ When(~/^I press (\w+)$/) { String opname ->
 
 // Use the world object to get any result from a previous step.
 // The expected value in the step is converted to the required type.
-Then(/the stored result should be {float}/) { double expected ->
+Then(/the stored result should be {}/) { double expected ->
     assert expected == result
 }
