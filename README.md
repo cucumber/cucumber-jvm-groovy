@@ -18,7 +18,7 @@ To use cucumber-jvm-groovy in your project, add the following dependency:
 
 - If using garadle add to your `build.gradle`:
 ```
-testCompile group: 'io.cucumber', name:'cucumber-groovy', version: '4.0.0'
+testCompile group: 'io.cucumber', name:'cucumber-groovy', version: '4.1.0'
 ```
 
 ## Running from the Command Line Interface (CLI)
