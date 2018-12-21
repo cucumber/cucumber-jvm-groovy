@@ -5,6 +5,7 @@ import cucumber.runtime.ClassFinder;
 import cucumber.runtime.CucumberException;
 import cucumber.runtime.Glue;
 import cucumber.runtime.filter.TagPredicate;
+import cucumber.runtime.io.MultiLoader;
 import cucumber.runtime.io.Resource;
 import cucumber.runtime.io.ResourceLoader;
 import cucumber.runtime.io.ResourceLoaderClassFinder;
@@ -79,9 +80,16 @@ public class GroovyBackend implements Backend {
 
         for (String gluePath : gluePaths) {
             // Load sources
-            for (Resource resource : resourceLoader.resources(gluePath, ".groovy")) {
-                Script script = parse(resource);
-                runIfScript(context, script);
+            try {
+                for (Resource resource : resourceLoader.resources(gluePath, ".groovy")) {
+                    Script script = parse(resource);
+                    runIfScript(context, script);
+                }
+            }catch(IllegalArgumentException iae){
+                for (Resource resource : resourceLoader.resources(MultiLoader.CLASSPATH_SCHEME + gluePath, ".groovy")) {
+                    Script script = parse(resource);
+                    runIfScript(context, script);
+                }
             }
             // Load compiled scripts
             for (Class<? extends Script> glueClass : classFinder.getDescendants(Script.class, packageName(gluePath))) {
