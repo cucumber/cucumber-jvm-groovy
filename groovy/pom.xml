@@ -155,7 +155,7 @@ GherkinDialectProvider.DIALECTS.keySet().each { language ->
                                 -->
 
                                 <echo message="Running groovy tests via the CLI..." />
-                                <java classname="groovy.ui.GroovyMain" fork="true" failonerror="true" newenvironment="true" maxmemory="512m">
+                                <java classname="groovy.ui.GroovyMain" fork="true" failonerror="true" newenvironment="true" maxmemory="512m" classpathref="maven.test.classpath">
                                     <classpath>
                                         <pathelement location="${maven.dependency.org.codehaus.groovy.groovy-all.jar.path}" />
                                         <pathelement location="${maven.dependency.junit.junit.jar.path}" />
