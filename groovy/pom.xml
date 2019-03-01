@@ -13,6 +13,7 @@
 
     <properties>
         <gmaven.runtime>1.8</gmaven.runtime>
+        <jackson.version>2.9.8</jackson.version>
     </properties>
 
     <dependencies>
@@ -28,12 +29,14 @@
         <dependency>
             <groupId>com.fasterxml.jackson.datatype</groupId>
             <artifactId>jackson-datatype-jsr310</artifactId>
-            <version>2.9.6</version>
+            <version>${jackson.version}</version>
+            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
-            <version>2.9.6</version>
+            <version>${jackson.version}</version>
+            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>io.cucumber</groupId>
@@ -154,7 +157,7 @@ GherkinDialectProvider.DIALECTS.keySet().each { language ->
                                 -->
 
                                 <echo message="Running groovy tests via the CLI..." />
-                                <java classname="groovy.ui.GroovyMain" fork="true" failonerror="true" newenvironment="true" maxmemory="512m">
+                                <java classname="groovy.ui.GroovyMain" fork="true" failonerror="true" newenvironment="true" maxmemory="512m" classpathref="maven.test.classpath">
                                     <classpath>
                                         <pathelement location="${maven.dependency.org.codehaus.groovy.groovy-all.jar.path}" />
                                         <pathelement location="${maven.dependency.junit.junit.jar.path}" />
