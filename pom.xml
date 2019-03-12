@@ -2,7 +2,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>io.cucumber</groupId>
     <artifactId>cucumber-jvm-groovy</artifactId>
-    <version>4.2.6-SNAPSHOT</version>
+    <version>4.2.6</version>
     <packaging>pom</packaging>
     <name>Cucumber-JVM: Groovy</name>
     <description>Cucumber for Groovy</description>
@@ -40,7 +40,7 @@
         <connection>scm:git:https://github.com/cucumber/cucumber-jvm-groovy.git</connection>
         <developerConnection>scm:git:git@github.com:cucumber/cucumber-jvm-groovy.git</developerConnection>
         <url>https://github.com/cucumber/cucumber-jvm-groovy</url>
-      <tag>HEAD</tag>
+      <tag>cucumber-jvm-groovy-4.2.6</tag>
   </scm>
 
     <dependencyManagement>
