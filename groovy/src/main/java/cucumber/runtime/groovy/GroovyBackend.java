@@ -23,13 +23,14 @@ import org.codehaus.groovy.runtime.InvokerInvocationException;
 
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.net.URI;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
-import static cucumber.runtime.io.MultiLoader.packageName;
+
 
 public class GroovyBackend implements Backend {
     public static ThreadLocal<GroovyBackend> instanceThreadLocal = new ThreadLocal<GroovyBackend>();
@@ -74,25 +75,20 @@ public class GroovyBackend implements Backend {
     }
 
     @Override
-    public void loadGlue(Glue glue, List<String> gluePaths) {
+    public void loadGlue(Glue glue, List<URI> gluePaths) {
         this.glue = glue;
         final Binding context = shell.getContext();
 
-        for (String gluePath : gluePaths) {
+        for (URI gluePath : gluePaths) {
             // Load sources
-            try {
+           
                 for (Resource resource : resourceLoader.resources(gluePath, ".groovy")) {
                     Script script = parse(resource);
                     runIfScript(context, script);
                 }
-            }catch(IllegalArgumentException iae){
-                for (Resource resource : resourceLoader.resources(MultiLoader.CLASSPATH_SCHEME + gluePath, ".groovy")) {
-                    Script script = parse(resource);
-                    runIfScript(context, script);
-                }
-            }
+            
             // Load compiled scripts
-            for (Class<? extends Script> glueClass : classFinder.getDescendants(Script.class, packageName(gluePath))) {
+            for (Class<? extends Script> glueClass : classFinder.getDescendants(Script.class, gluePath)) {
                 try {
                     Script script = glueClass.getConstructor(Binding.class).newInstance(context);
                     runIfScript(context, script);
@@ -123,7 +119,7 @@ public class GroovyBackend implements Backend {
 
     private Script parse(Resource resource) {
         try {
-            return shell.parse(new InputStreamReader(resource.getInputStream(), "UTF-8"), resource.getAbsolutePath());
+            return shell.parse(new InputStreamReader(resource.getInputStream(), "UTF-8"));
         } catch (IOException e) {
             throw new CucumberException(e);
         }

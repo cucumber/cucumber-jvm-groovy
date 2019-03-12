@@ -2,7 +2,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>io.cucumber</groupId>
     <artifactId>cucumber-jvm-groovy</artifactId>
-    <version>4.2.1-SNAPSHOT</version>
+    <version>4.2.6-SNAPSHOT</version>
     <packaging>pom</packaging>
     <name>Cucumber-JVM: Groovy</name>
     <description>Cucumber for Groovy</description>
@@ -23,7 +23,7 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <minimum.maven.version>3.3</minimum.maven.version>
         <outputDirectory>${project.build.directory}</outputDirectory>
-        <cucumber.version>4.2.0</cucumber.version>
+        <cucumber.version>4.2.6</cucumber.version>
         <gherkin.version>5.1.0</gherkin.version>
         <groovy.version>2.4.12</groovy.version>
         <junit.version>4.12</junit.version>
