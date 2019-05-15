@@ -40,7 +40,7 @@
         <connection>scm:git:https://github.com/cucumber/cucumber-jvm-groovy.git</connection>
         <developerConnection>scm:git:git@github.com:cucumber/cucumber-jvm-groovy.git</developerConnection>
         <url>https://github.com/cucumber/cucumber-jvm-groovy</url>
-      <tag>cucumber-jvm-groovy-4.3.0</tag>
+        <tag>v4.3.0</tag>
   </scm>
 
     <dependencyManagement>
