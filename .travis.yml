@@ -6,17 +6,17 @@ cache:
 jobs:
   include:
   - stage: test
-    jdk: oraclejdk8
+    jdk: openjdk8
     script: mvn -q verify
     after_success:
     - mvn clean cobertura:cobertura coveralls:report -P coveralls.io
-  - jdk: oraclejdk8
+  - jdk: openjdk8
     env: JAVADOC=true
     script:
     - mvn clean verify -DskipTests=true
     - mvn javadoc:aggregate
   - stage: deploy
-    jdk: oraclejdk8
+    jdk: openjdk8
     script:
     - "./continuous-deployment/before-deploy.sh"
     - "./continuous-deployment/deploy.sh"
