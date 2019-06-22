@@ -1,7 +1,7 @@
 ## Maven Dependency
 
 [![Build Status](https://travis-ci.org/cucumber/cucumber-jvm-groovy.svg?branch=master)](https://travis-ci.org/cucumber/cucumber-jvm-groovy)
-[![Maven Central](https://maven-badges.herokuapp.com/maven-central/io.cucumber/cucumber-groovy/badge.svg)](https://maven-badges.herokuapp.com/maven-central/io.cucumber/cucumber-groovy) 
+[![Maven Central](https://img.shields.io/maven-central/v/io.cucumber/cucumber-groovy.svg?label=Maven%20Central)](https://search.maven.org/search?q=g:%22io.cucumber%22%20AND%20a:%22cucumber-groovy%22)
 
 To use cucumber-jvm-groovy in your project, add the following dependency:
 
