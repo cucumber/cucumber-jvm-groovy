@@ -5,7 +5,6 @@ import cucumber.runtime.ClassFinder;
 import cucumber.runtime.CucumberException;
 import cucumber.runtime.Glue;
 import cucumber.runtime.filter.TagPredicate;
-import cucumber.runtime.io.MultiLoader;
 import cucumber.runtime.io.Resource;
 import cucumber.runtime.io.ResourceLoader;
 import cucumber.runtime.io.ResourceLoaderClassFinder;
@@ -33,14 +32,14 @@ import java.util.Set;
 
 
 public class GroovyBackend implements Backend {
-    public static ThreadLocal<GroovyBackend> instanceThreadLocal = new ThreadLocal<GroovyBackend>();
-    private final Set<Class> scripts = new HashSet<Class>();
+    public static ThreadLocal<GroovyBackend> instanceThreadLocal = new ThreadLocal<>();
+    private final Set<Class> scripts = new HashSet<>();
     private  SnippetGenerator snippetGenerator;
     private final ResourceLoader resourceLoader;
     private final GroovyShell shell;
     private final ClassFinder classFinder;
     private TypeRegistry typeRegistry;
-    private Collection<Closure> worldClosures = new LinkedList<Closure>();
+    private Collection<Closure> worldClosures = new LinkedList<>();
     private GroovyWorld world;
     private Glue glue;
 

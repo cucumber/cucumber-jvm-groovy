@@ -12,7 +12,7 @@ public class Hooks {
     private static final int DEFAULT_ORDER = 10000;
     private static final long DEFAULT_TIMEOUT = 0;
 
-    public static void World(Closure body) throws Throwable {
+    public static void World(Closure body) {
         GroovyBackend.getInstance().registerWorld(body);
     }
 

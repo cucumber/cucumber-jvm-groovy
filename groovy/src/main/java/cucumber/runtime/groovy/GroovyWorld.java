@@ -15,7 +15,7 @@ class GroovyWorld extends GroovyObjectSupport {
 
     public GroovyWorld() {
         super();
-        worlds = new LinkedList<GroovyObject>();
+        worlds = new LinkedList<>();
     }
 
     public void registerWorld(Object world) {
