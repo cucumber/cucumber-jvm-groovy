@@ -40,12 +40,9 @@ public class GroovyHookDefinition implements HookDefinition {
 
     @Override
     public void execute(final Scenario scenario) throws Throwable {
-        Timeout.timeout(new Timeout.Callback<Object>() {
-            @Override
-            public Object call() throws Throwable {
-                backend.invoke(body, new Object[]{scenario});
-                return null;
-            }
+        Timeout.timeout(() -> {
+            backend.invoke(body, new Object[]{scenario});
+            return null;
         }, timeoutMillis);
     }
 
