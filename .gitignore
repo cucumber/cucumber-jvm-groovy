@@ -1,4 +1,11 @@
 .idea
 *.iml
+
 target
+
+
+examples/pom.xml.releaseBackup
+groovy/pom.xml.releaseBackup
+pom.xml.releaseBackup
+release.properties
 
