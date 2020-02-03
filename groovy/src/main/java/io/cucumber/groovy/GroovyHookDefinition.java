@@ -34,11 +34,7 @@ public class GroovyHookDefinition implements HookDefinition {
 
     @Override
     public void execute(TestCaseState scenario) {
-        try {
-            Invoker.invoke(backend, body, new Object[]{scenario});
-        } catch (Throwable throwable) {
-            throwable.printStackTrace();
-        }
+        Invoker.invoke(backend, body, new Object[]{scenario});
     }
 
     @Override

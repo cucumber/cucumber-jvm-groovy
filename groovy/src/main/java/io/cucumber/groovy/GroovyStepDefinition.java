@@ -2,6 +2,7 @@ package io.cucumber.groovy;
 
 import groovy.lang.Closure;
 import io.cucumber.core.backend.CucumberBackendException;
+import io.cucumber.core.backend.CucumberInvocationTargetException;
 import io.cucumber.core.backend.ParameterInfo;
 import io.cucumber.core.backend.StepDefinition;
 
@@ -38,12 +39,8 @@ public class GroovyStepDefinition implements StepDefinition {
     }
 
     @Override
-    public void execute(final Object[] args) {
-        try {
-            Invoker.invoke(backend, body, args);
-        } catch (Throwable e) {
-            throw new CucumberBackendException("Failed to invoke " + body, e);
-        }
+    public void execute(final Object[] args) throws CucumberBackendException, CucumberInvocationTargetException {
+        Invoker.invoke(backend, body, args);
     }
 
     @Override

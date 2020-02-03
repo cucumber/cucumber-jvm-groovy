@@ -2,7 +2,10 @@ package io.cucumber.groovy;
 
 import groovy.lang.Closure;
 import io.cucumber.core.backend.CucumberBackendException;
+import io.cucumber.core.backend.CucumberInvocationTargetException;
 import org.codehaus.groovy.runtime.InvokerInvocationException;
+
+import java.lang.reflect.InvocationTargetException;
 
 public class Invoker {
 
@@ -12,7 +15,7 @@ public class Invoker {
         try {
             body.call(args);
         } catch (InvokerInvocationException e) {
-            throw new CucumberBackendException("Failed to invoke step", e);
+            throw new CucumberInvocationTargetException(null, new InvocationTargetException(e.getCause()));
         }
     }
 }
