@@ -1,26 +1,19 @@
-package cucumber.api.groovy;
+package io.cucumber.groovy;
 
 import groovy.lang.Closure;
-import cucumber.runtime.groovy.*;
+import io.cucumber.groovy.*;
 
 import java.util.regex.Pattern;
 
 public class ${normalized_language} {
 <% i18n.stepKeywords.findAll { !it.contains('*') && !it.matches("^\\d.*") }.unique().each { kw -> %>
-    public static void ${kw.replaceAll("[\\s',!]", "")}(String expression, Closure body) throws Throwable {
-        GroovyBackend.getInstance().addStepDefinition(expression, 0, body);
+
+    public static void ${java.text.Normalizer.normalize(kw.replaceAll("[\\s',!]", ""), java.text.Normalizer.Form.NFC)}(String expression, Closure body) throws Throwable {
+        GroovyBackend.getInstance().addStepDefinition(expression, body);
     }
 
-    public static void ${java.text.Normalizer.normalize(kw.replaceAll("[\\s',!]", ""), java.text.Normalizer.Form.NFC)}(String expression, long timeoutMillis, Closure body) throws Throwable {
-        GroovyBackend.getInstance().addStepDefinition(expression, timeoutMillis, body);
-    }
-
-    public static void ${kw.replaceAll("[\\s',!]", "")}(Pattern regexp, Closure body) throws Throwable {
-        GroovyBackend.getInstance().addStepDefinition(regexp.toString(), 0, body);
-    }
-
-    public static void ${java.text.Normalizer.normalize(kw.replaceAll("[\\s',!]", ""), java.text.Normalizer.Form.NFC)}(Pattern regexp, long timeoutMillis, Closure body) throws Throwable {
-        GroovyBackend.getInstance().addStepDefinition(regexp.toString(), timeoutMillis, body);
+    public static void ${java.text.Normalizer.normalize(kw.replaceAll("[\\s',!]", ""), java.text.Normalizer.Form.NFC)}(Pattern regexp, Closure body) throws Throwable {
+        GroovyBackend.getInstance().addStepDefinition(regexp.toString(), body);
     }
 <% } %>
 }

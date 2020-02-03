@@ -4,7 +4,7 @@
     <parent>
         <groupId>io.cucumber</groupId>
         <artifactId>cucumber-jvm-groovy</artifactId>
-        <version>4.7.2-SNAPSHOT</version>
+        <version>5.1.3-SNAPSHOT</version>
     </parent>
 
     <artifactId>cucumber-groovy</artifactId>
@@ -52,6 +52,11 @@
             <groupId>org.mockito</groupId>
             <artifactId>mockito-core</artifactId>
             <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.google.auto.service</groupId>
+            <artifactId>auto-service</artifactId>
+            <version>1.0-rc6</version>
         </dependency>
     </dependencies>
 
@@ -176,9 +181,9 @@ GherkinDialectProvider.DIALECTS.keySet().each { language ->
 
                                     -->
                                     <arg value="--glue" />
-                                    <arg value="classpath:cucumber/runtime/groovy" />
+                                    <arg value="classpath:io/cucumber/groovy" />
 
-                                    <arg value="classpath:cucumber/runtime/groovy" />
+                                    <arg value="classpath:io/cucumber/groovy" />
                                 </java>
 
                             </target>

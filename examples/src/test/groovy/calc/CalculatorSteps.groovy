@@ -1,8 +1,11 @@
 package calc
 
+import io.cucumber.groovy.EN
+import io.cucumber.groovy.Hooks
+
 // Add functions to register hooks and steps to this script.
-this.metaClass.mixin(cucumber.api.groovy.Hooks)
-this.metaClass.mixin(cucumber.api.groovy.EN)
+this.metaClass.mixin(Hooks)
+this.metaClass.mixin(EN)
 
 // Define a world that represents the test environment.
 // Hooks can set up and tear down the environment and steps
