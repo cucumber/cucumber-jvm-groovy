@@ -2,6 +2,7 @@ package io.cucumber.groovy
 
 import io.cucumber.groovy.EN
 import io.cucumber.datatable.DataTable
+import javafx.scene.transform.Transform
 
 import static groovy.util.GroovyTestCase.assertEquals
 

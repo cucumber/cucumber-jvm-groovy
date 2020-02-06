@@ -13,8 +13,14 @@ class DateWrapper {
   def date
 }
 
-Given('today\'s date is "{date}" and tomorrow is:') { DateWrapper today, String tomorrow ->
-    assertEquals(3, today.date.getDayOfMonth())
+@ParameterType("([0-9]{4})-([0-9]{2})-([0-9]{2})")
+LocalDate parameterTypeIso8601Date(String year, String month, String day) {
+    LocalDate.of(Integer.parseInt(year), Integer.parseInt(month), Integer.parseInt(day));
+}
+
+
+Given('today\'s date is "{parameterTypeIso8601Date}" and tomorrow is:') { LocalDate today, String tomorrow ->
+    assertEquals(3, today.getDayOfMonth())
     assertEquals('1971-10-04',tomorrow)
 }
 

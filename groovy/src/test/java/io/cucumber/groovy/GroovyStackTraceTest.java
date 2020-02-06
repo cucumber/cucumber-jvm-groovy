@@ -39,7 +39,7 @@ public class GroovyStackTraceTest {
 
 
         public ExceptionThrowingBackend() {
-            super(null, null);
+            super(null, null, null);
         }
 
 

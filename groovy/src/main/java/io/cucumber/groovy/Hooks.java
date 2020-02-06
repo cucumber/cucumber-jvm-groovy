@@ -15,7 +15,6 @@ public class Hooks {
      * Registers a before hook, which is executed before specific, or all, scenarios.
      * <p>
      * Following values are expected as hook parameters.
-     * - Long timeoutMillis: max amount of milliseconds this is allowed to run for. The default is 0 which means no restriction.
      * - Integer order: the order in which this hook should run. Lower numbers are run first. The default is 10000.
      * - String(s) tags: one or more tag expression to filter the certain scenarios. The default is empty.
      * - Closure body: hook body which is executed before scenario. Not null.
@@ -30,7 +29,6 @@ public class Hooks {
      * Registers an after hook, which is executed after specific, or all, scenarios.
      * <p>
      * Following values are expected as hook parameters.
-     * - Long timeoutMillis: max amount of milliseconds this is allowed to run for. The default is 0 which means no restriction.
      * - Integer order: the order in which this hook should run. Higher numbers are run first. The default is 10000.
      * - String(s) tags: one or more tag expression to filter the certain scenarios. The default is empty.
      * - Closure body: hook body which is executed after scenario. Not null.

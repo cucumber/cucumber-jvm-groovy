@@ -2,7 +2,6 @@ package io.cucumber.groovy
 
 import io.cucumber.groovy.EN
 import io.cucumber.datatable.DataTable
-
 this.metaClass.mixin(EN)
 this.metaClass.mixin(Hooks)
 
@@ -13,6 +12,7 @@ def topLevelValueRead = "TOP"
 World {
     new AnotherCustomWorld()
 }
+
 
 When(~/^set world property "(\w+)"$/) { p ->
     aProperty = p

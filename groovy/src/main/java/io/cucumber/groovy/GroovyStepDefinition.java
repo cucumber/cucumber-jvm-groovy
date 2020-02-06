@@ -10,32 +10,16 @@ import java.util.List;
 
 import static java.util.Objects.requireNonNull;
 
-public class GroovyStepDefinition implements StepDefinition {
-    private final String pattern;
-
+public class GroovyStepDefinition extends AbstractStepGlueDefinition implements StepDefinition {
+    private final String expression;
     private final Closure body;
-    private final StackTraceElement location;
     private final GroovyBackend backend;
 
-
-    private final List<ParameterInfo> parameterInfos;
-
-    public GroovyStepDefinition(String pattern, Closure body, StackTraceElement location, GroovyBackend backend) {
-        this.pattern = requireNonNull(pattern, "cucumber-expression may not be null");
+    public GroovyStepDefinition(String expression, Closure body, StackTraceElement location, GroovyBackend backend) {
+        super(body,location);
+        this.expression = requireNonNull(expression, "cucumber-expression may not be null");
         this.backend = backend;
         this.body = body;
-        this.location = location;
-        this.parameterInfos = getParameterInfos();
-    }
-
-    @Override
-    public String getLocation() {
-        return location.getFileName() + ":" + location.getLineNumber();
-    }
-
-    private List<ParameterInfo> getParameterInfos() {
-        Class[] parameterTypes = body.getParameterTypes();
-        return ParameterInfoGroovy.fromTypes(parameterTypes);
     }
 
     @Override
@@ -45,15 +29,11 @@ public class GroovyStepDefinition implements StepDefinition {
 
     @Override
     public List<ParameterInfo> parameterInfos() {
-        return parameterInfos;
-    }
-
-    public boolean isDefinedAt(StackTraceElement stackTraceElement) {
-        return location.getFileName().equals(stackTraceElement.getFileName());
+        return getParameterInfos();
     }
 
     @Override
     public String getPattern() {
-        return pattern;
+        return expression;
     }
 }

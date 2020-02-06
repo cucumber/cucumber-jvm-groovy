@@ -12,6 +12,7 @@ import io.cucumber.core.resource.ClasspathSupport;
 import io.cucumber.core.resource.ResourceScanner;
 import org.codehaus.groovy.control.CompilerConfiguration;
 
+import java.lang.annotation.Annotation;
 import java.net.URI;
 import java.util.*;
 import java.util.function.Supplier;
@@ -19,6 +20,7 @@ import java.util.function.Supplier;
 import static io.cucumber.core.resource.ClasspathSupport.CLASSPATH_SCHEME;
 import static io.cucumber.groovy.GroovyScriptIdentifier.currentLocation;
 import static io.cucumber.groovy.GroovyScriptIdentifier.parse;
+import static io.cucumber.groovy.MethodScanner.scan;
 
 
 public class GroovyBackend implements Backend {
@@ -27,16 +29,16 @@ public class GroovyBackend implements Backend {
     private final ResourceScanner<Script> resourceLoader;
     private final GroovyShell shell;
     private final ClasspathScanner classFinder;
+    private final Lookup lookup;
+    private final Container container;
     private Collection<Closure> worldClosures = new LinkedList<>();
     private GroovyWorld world;
     private Glue glue;
 
-    public GroovyBackend(Lookup lookup, Container container, Supplier<ClassLoader> classLoaderSupplier) {
-        this(createShell(), classLoaderSupplier);
-    }
-
-    public GroovyBackend(GroovyShell shell, Supplier<ClassLoader> classLoaderSupplier) {
-        this.shell = shell;
+    GroovyBackend(Lookup lookup, Container container, Supplier<ClassLoader> classLoaderSupplier) {
+        this.lookup = lookup;
+        this.container = container;
+        this.shell = createShell();
         this.resourceLoader = new ResourceScanner<>(
                 classLoaderSupplier,
                 GroovyScriptIdentifier::isGroovyScript,
@@ -46,7 +48,8 @@ public class GroovyBackend implements Backend {
         instanceThreadLocal.set(this);
     }
 
-    public static GroovyBackend getInstance() {
+
+    static GroovyBackend getInstance() {
         return instanceThreadLocal.get();
     }
 
@@ -71,14 +74,47 @@ public class GroovyBackend implements Backend {
                 .map(c -> classFinder.scanForSubClassesInPackage(c, Script.class))
                 .flatMap(Collection::stream)
                 .forEach(glueClass -> {
-                    Script script = null;
+                    Script script;
                     try {
                         script = glueClass.getConstructor(Binding.class).newInstance(context);
                     } catch (Exception e) {
                         throw new CucumberException(e);
                     }
+                    registerParameters(glueClass);
                     runIfScript(context, script);
                 });
+    }
+
+    private void registerParameters(Class scriptClass) {
+        scan(scriptClass, (method, annotation) -> {
+            Class<? extends Annotation> annotationType = annotation.annotationType();
+            if (annotationType.equals(ParameterType.class)) {
+                ParameterType parameterType = (ParameterType) annotation;
+                String pattern = parameterType.value();
+                String name = parameterType.name();
+                boolean useForSnippets = parameterType.useForSnippets();
+                boolean preferForRegexMatch = parameterType.preferForRegexMatch();
+                glue.addParameterType(new GroovyParameterTypeDefinition(name, pattern, method, useForSnippets, preferForRegexMatch, lookup));
+            } else if (annotationType.equals(DataTableType.class)) {
+                DataTableType dataTableType = (DataTableType) annotation;
+                glue.addDataTableType(new GroovyDataTableTypeDefinition(method, lookup, dataTableType.replaceWithEmptyString()));
+            } else if (annotationType.equals(DefaultParameterTransformer.class)) {
+                glue.addDefaultParameterTransformer(new GroovyDefaultParameterTransformerDefinition(method, lookup));
+            } else if (annotationType.equals(DefaultDataTableEntryTransformer.class)) {
+                DefaultDataTableEntryTransformer transformer = (DefaultDataTableEntryTransformer) annotation;
+                boolean headersToProperties = transformer.headersToProperties();
+                String[] replaceWithEmptyString = transformer.replaceWithEmptyString();
+                glue.addDefaultDataTableEntryTransformer(new GroovyDefaultDataTableEntryTransformerDefinition(method, lookup, headersToProperties, replaceWithEmptyString));
+            } else if (annotationType.equals(DefaultDataTableCellTransformer.class)) {
+                DefaultDataTableCellTransformer cellTransformer = (DefaultDataTableCellTransformer) annotation;
+                String[] emptyPatterns = cellTransformer.replaceWithEmptyString();
+                glue.addDefaultDataTableCellTransformer(new GroovyDefaultDataTableCellTransformerDefinition(method, lookup, emptyPatterns));
+            } else if (annotationType.equals(DocStringType.class)) {
+                DocStringType docStringType = (DocStringType) annotation;
+                String contentType = docStringType.contentType();
+                glue.addDocStringType(new GroovyDocStringTypeDefinition(contentType, method, lookup));
+            }
+        });
     }
 
     private void runIfScript(Binding context, Script script) {
@@ -108,27 +144,27 @@ public class GroovyBackend implements Backend {
         return new GroovySnippet();
     }
 
-    public void registerWorld(Closure closure) {
+    void registerWorld(Closure closure) {
         worldClosures.add(closure);
     }
 
-    public void addStepDefinition(String regexp, Closure body) {
+    void addStepDefinition(String regexp, Closure body) {
         glue.addStepDefinition(new GroovyStepDefinition(regexp, body, currentLocation(), this));
     }
 
-    public void addBeforeHook(String tagPredicate, int order, Closure body) {
+    void addBeforeHook(String tagPredicate, int order, Closure body) {
         glue.addBeforeHook(new GroovyHookDefinition(tagPredicate, order, body, currentLocation(), this));
     }
 
-    public void addAfterHook(String tagPredicate, int order, Closure body) {
+    void addAfterHook(String tagPredicate, int order, Closure body) {
         glue.addAfterHook(new GroovyHookDefinition(tagPredicate, order, body, currentLocation(), this));
     }
 
-    public void addBeforeStepHook(String tagPredicate, int order, Closure body) {
+    void addBeforeStepHook(String tagPredicate, int order, Closure body) {
         glue.addBeforeStepHook(new GroovyHookDefinition(tagPredicate, order, body, currentLocation(), this));
     }
 
-    public void addAfterStepHook(String tagPredicate, int order, Closure body) {
+    void addAfterStepHook(String tagPredicate, int order, Closure body) {
         glue.addAfterStepHook(new GroovyHookDefinition(tagPredicate, order, body, currentLocation(), this));
     }
 

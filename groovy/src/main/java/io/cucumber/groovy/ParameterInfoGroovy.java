@@ -25,10 +25,12 @@ public class ParameterInfoGroovy implements ParameterInfo {
         return result;
     }
 
+    @Override
     public Type getType() {
         return this.type;
     }
 
+    @Override
     public boolean isTransposed() {
         return this.transposed;
     }
