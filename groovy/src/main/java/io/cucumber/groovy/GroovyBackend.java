@@ -24,7 +24,7 @@ import static io.cucumber.groovy.MethodScanner.scan;
 
 
 public class GroovyBackend implements Backend {
-    public static ThreadLocal<GroovyBackend> instanceThreadLocal = new ThreadLocal<>();
+    private static ThreadLocal<GroovyBackend> instanceThreadLocal = new ThreadLocal<>();
     private final Set<Class> scripts = new HashSet<>();
     private final ResourceScanner<Script> resourceLoader;
     private final GroovyShell shell;
@@ -81,7 +81,6 @@ public class GroovyBackend implements Backend {
                         throw new CucumberException(e);
                     }
                     runIfScript(context, script);
-                    //registerParameters(glueClass);
                 });
     }
 
