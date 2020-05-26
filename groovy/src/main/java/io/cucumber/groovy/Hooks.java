@@ -3,10 +3,12 @@ package io.cucumber.groovy;
 
 import groovy.lang.Closure;
 import io.cucumber.core.exception.CucumberException;
+import org.apiguardian.api.API;
 
 public class Hooks {
     private static final int DEFAULT_ORDER = 10000;
 
+    @API(status = API.Status.STABLE)
     public static void World(Closure body) {
         GroovyBackend.getInstance().registerWorld(body);
     }
@@ -21,6 +23,7 @@ public class Hooks {
      *
      * @param args the hook parameters
      */
+    @API(status = API.Status.STABLE)
     public static void Before(Object... args) {
         addHook(args, true, false);
     }
@@ -35,14 +38,17 @@ public class Hooks {
      *
      * @param args the hook parameters
      */
+    @API(status = API.Status.STABLE)
     public static void After(Object... args) {
         addHook(args, false, false);
     }
 
+    @API(status = API.Status.STABLE)
     public static void AfterStep(Object... args) {
         addHook(args, false, true);
     }
 
+    @API(status = API.Status.STABLE)
     public static void BeforeStep(Object... args) {
         addHook(args, true, true);
     }
@@ -55,7 +61,7 @@ public class Hooks {
 
         for (Object o : tagsExpressionsAndBody) {
             if (o instanceof String) {
-                tagExpressions += (String) o;
+                tagExpressions = (String) o;
             } else if (o instanceof Integer) {
                 if (orderSet) {
                     throw new CucumberException("Two order (Integer) arguments found; " +
