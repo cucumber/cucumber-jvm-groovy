@@ -17,7 +17,6 @@ class AbstractDatatableElementTransformerDefinition extends AbstractParamGlueDef
 
     AbstractDatatableElementTransformerDefinition(Method method, Lookup lookup, String[] emptyPatterns) {
         super(method, lookup);
-
         this.emptyPatterns = emptyPatterns;
     }
 

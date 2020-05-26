@@ -26,7 +26,7 @@ class GroovyDefaultDataTableEntryTransformerDefinition extends AbstractDatatable
         super(requireValidMethod(method), lookup, emptyPatterns);
         this.headersToProperties = headersToProperties;
         this.transformer = (entryValue, toValueType, cellTransformer) ->
-            execute(replaceEmptyPatternsWithEmptyString(entryValue), toValueType, cellTransformer);
+                execute(replaceEmptyPatternsWithEmptyString(entryValue), toValueType, cellTransformer);
     }
 
     private static Method requireValidMethod(Method method) {
@@ -76,10 +76,10 @@ class GroovyDefaultDataTableEntryTransformerDefinition extends AbstractDatatable
 
     private static InvalidMethodSignatureException createInvalidSignatureException(Method method) {
         return builder(method)
-            .addAnnotation(DefaultDataTableEntryTransformer.class)
-            .addSignature("Object defaultDataTableEntry(Map<String, String> fromValue, Type toValueType)")
-            .addSignature("Object defaultDataTableEntry(Object fromValue, Type toValueType)")
-            .build();
+                .addAnnotation(DefaultDataTableEntryTransformer.class)
+                .addSignature("Object defaultDataTableEntry(Map<String, String> fromValue, Type toValueType)")
+                .addSignature("Object defaultDataTableEntry(Object fromValue, Type toValueType)")
+                .build();
     }
 
     @Override
@@ -94,6 +94,7 @@ class GroovyDefaultDataTableEntryTransformerDefinition extends AbstractDatatable
 
     private Object execute(Map<String, String> fromValue, Type toValueType, TableCellByTypeTransformer cellTransformer) {
         Object[] args;
+
         if (method.getParameterTypes().length == 3) {
             args = new Object[]{fromValue, toValueType, cellTransformer};
         } else {

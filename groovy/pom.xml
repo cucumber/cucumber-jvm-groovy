@@ -14,6 +14,7 @@
     <properties>
         <gmaven.runtime>1.8</gmaven.runtime>
         <jackson.version>2.10.0</jackson.version>
+        <junit-jupiter.version>5.6.0</junit-jupiter.version>
     </properties>
 
     <dependencies>
@@ -44,8 +45,9 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter</artifactId>
+            <version>${junit-jupiter.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -108,6 +110,7 @@
                             <target>
                                 <taskdef name="groovy" classname="org.codehaus.groovy.ant.Groovy" classpathref="maven.plugin.classpath" />
 
+                                <!--suppress UnresolvedMavenProperty -->
                                 <groovy><![CDATA[
 import groovy.text.SimpleTemplateEngine
 import gherkin.GherkinDialect

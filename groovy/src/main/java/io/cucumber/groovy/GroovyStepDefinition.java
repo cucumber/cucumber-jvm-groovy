@@ -16,7 +16,7 @@ public class GroovyStepDefinition extends AbstractStepGlueDefinition implements 
     private final GroovyBackend backend;
 
     public GroovyStepDefinition(String expression, Closure body, StackTraceElement location, GroovyBackend backend) {
-        super(body,location);
+        super(body, location);
         this.expression = requireNonNull(expression, "cucumber-expression may not be null");
         this.backend = backend;
         this.body = body;

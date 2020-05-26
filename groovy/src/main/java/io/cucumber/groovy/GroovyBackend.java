@@ -80,8 +80,8 @@ public class GroovyBackend implements Backend {
                     } catch (Exception e) {
                         throw new CucumberException(e);
                     }
-                    registerParameters(glueClass);
                     runIfScript(context, script);
+                    //registerParameters(glueClass);
                 });
     }
 
@@ -121,8 +121,10 @@ public class GroovyBackend implements Backend {
         Class scriptClass = script.getMetaClass().getTheClass();
         if (GroovyScriptIdentifier.isScript(script) && !scripts.contains(scriptClass)) {
             script.setBinding(context);
+            registerParameters(scriptClass);
             script.run();
             scripts.add(scriptClass);
+            container.addClass(scriptClass);
         }
     }
 

@@ -48,10 +48,10 @@ final class InvalidMethodSignatureException extends CucumberBackendException {
 
         public InvalidMethodSignatureException build() {
             return new InvalidMethodSignatureException("" +
-                describeAnnotations() + " must have one of these signatures:\n" +
-                " * " + describeAvailableSignature() + "\n" +
-                "at " + describeLocation() + "\n" +
-                describeNote() + "\n"
+                    describeAnnotations() + " must have one of these signatures:\n" +
+                    " * " + describeAvailableSignature() + "\n" +
+                    "at " + describeLocation() + "\n" +
+                    describeNote() + "\n"
             );
         }
 

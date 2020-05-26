@@ -1,7 +1,8 @@
 package io.cucumber.groovy
 
-import io.cucumber.groovy.EN
 import io.cucumber.datatable.DataTable
+import io.cucumber.groovy.EN
+
 this.metaClass.mixin(EN)
 this.metaClass.mixin(Hooks)
 
@@ -14,7 +15,7 @@ World {
 }
 
 
-When(~/^set world property "(\w+)"$/) { p ->
+When(~/^set world property "(\w+)"$/) { String p ->
     aProperty = p
     topLevelValueWrite = p
 }
@@ -24,13 +25,13 @@ Then(~/^properties visibility is ok$/) { ->
     assert topLevelValueRead == "TOP"
 }
 
-Then(~/^world property is "(\w+)"$/) { p ->
+Then(~/^world property is "(\w+)"$/) { String p ->
     assert aProperty == p
     assert propertyValue == p
     assert topLevelValueWrite == p
 }
 
-When(~/^world method call$/) {  ->
+When(~/^world method call$/) { ->
     aMethod()
 }
 

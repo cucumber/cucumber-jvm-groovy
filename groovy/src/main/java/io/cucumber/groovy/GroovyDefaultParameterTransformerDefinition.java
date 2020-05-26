@@ -44,10 +44,10 @@ class GroovyDefaultParameterTransformerDefinition extends AbstractParamGlueDefin
 
     private static InvalidMethodSignatureException createInvalidSignatureException(Method method) {
         return builder(method)
-            .addAnnotation(DefaultParameterTransformer.class)
-            .addSignature("Object defaultDataTableEntry(String fromValue, Type toValueType)")
-            .addSignature("Object defaultDataTableEntry(Object fromValue, Type toValueType)")
-            .build();
+                .addAnnotation(DefaultParameterTransformer.class)
+                .addSignature("Object defaultDataTableEntry(String fromValue, Type toValueType)")
+                .addSignature("Object defaultDataTableEntry(Object fromValue, Type toValueType)")
+                .build();
     }
 
 

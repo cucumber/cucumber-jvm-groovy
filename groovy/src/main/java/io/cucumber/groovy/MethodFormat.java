@@ -33,9 +33,9 @@ final class MethodFormat {
      */
     private MethodFormat(String format) {
         String pattern = format
-            .replaceAll("%qc", "{0}")
-            .replaceAll("%m", "{1}")
-            .replaceAll("%qa", "{2}");
+                .replaceAll("%qc", "{0}")
+                .replaceAll("%m", "{1}")
+                .replaceAll("%qa", "{2}");
         this.format = new MessageFormat(pattern);
     }
 
@@ -48,9 +48,9 @@ final class MethodFormat {
             String qa = matcher.group(5);
 
             return format.format(new Object[]{
-                qc,
-                m,
-                qa,
+                    qc,
+                    m,
+                    qa,
             });
         } else {
             throw new CucumberBackendException("Cucumber bug: Couldn't format " + signature);

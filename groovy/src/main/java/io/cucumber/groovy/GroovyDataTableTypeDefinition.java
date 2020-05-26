@@ -24,13 +24,13 @@ class GroovyDataTableTypeDefinition extends AbstractDatatableElementTransformerD
 
     private static InvalidMethodSignatureException createInvalidSignatureException(Method method) {
         return builder(method)
-            .addAnnotation(io.cucumber.groovy.DataTableType.class)
-            .addSignature("Author author(DataTable table)")
-            .addSignature("Author author(List<String> row)")
-            .addSignature("Author author(Map<String, String> entry)")
-            .addSignature("Author author(String cell)")
-            .addNote("Note: Author is an example of the class you want to convert the table to.")
-            .build();
+                .addAnnotation(io.cucumber.groovy.DataTableType.class)
+                .addSignature("Author author(DataTable table)")
+                .addSignature("Author author(List<String> row)")
+                .addSignature("Author author(Map<String, String> entry)")
+                .addSignature("Author author(String cell)")
+                .addNote("Note: Author is an example of the class you want to convert the table to.")
+                .build();
     }
 
     private static Type requireValidParameterType(Method method) {
@@ -65,34 +65,35 @@ class GroovyDataTableTypeDefinition extends AbstractDatatableElementTransformerD
     }
 
     private DataTableType createDataTableType(Method method) {
+
         Type returnType = requireValidReturnType(method);
         Type parameterType = requireValidParameterType(method);
 
         if (DataTable.class.equals(parameterType)) {
             return new DataTableType(
-                returnType,
-                (DataTable table) -> execute(replaceEmptyPatternsWithEmptyString(table))
+                    returnType,
+                    (DataTable table) -> execute(replaceEmptyPatternsWithEmptyString(table))
             );
         }
 
         if (List.class.equals(parameterType)) {
             return new DataTableType(
-                returnType,
-                (List<String> row) -> execute(replaceEmptyPatternsWithEmptyString(row))
+                    returnType,
+                    (List<String> row) -> execute(replaceEmptyPatternsWithEmptyString(row))
             );
         }
 
         if (Map.class.equals(parameterType)) {
             return new DataTableType(
-                returnType,
-                (Map<String, String> entry) -> execute(replaceEmptyPatternsWithEmptyString(entry))
+                    returnType,
+                    (Map<String, String> entry) -> execute(replaceEmptyPatternsWithEmptyString(entry))
             );
         }
 
         if (String.class.equals(parameterType)) {
             return new DataTableType(
-                returnType,
-                (String cell) -> execute(replaceEmptyPatternsWithEmptyString(cell))
+                    returnType,
+                    (String cell) -> execute(replaceEmptyPatternsWithEmptyString(cell))
             );
         }
 

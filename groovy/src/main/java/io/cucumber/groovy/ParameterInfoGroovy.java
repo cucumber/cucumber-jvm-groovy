@@ -1,10 +1,13 @@
 package io.cucumber.groovy;
 
+import groovy.lang.Closure;
 import io.cucumber.core.backend.ParameterInfo;
 import io.cucumber.core.backend.TypeResolver;
 
+import java.lang.annotation.Annotation;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class ParameterInfoGroovy implements ParameterInfo {
@@ -16,10 +19,20 @@ public class ParameterInfoGroovy implements ParameterInfo {
         this.transposed = transposed;
     }
 
-    public static List<ParameterInfo> fromTypes(Type[] genericParameterTypes) {
-        List<ParameterInfo> result = new ArrayList();
-        for (int i = 0; i < genericParameterTypes.length; ++i) {
+    public static List<ParameterInfo> fromTypes(Closure closure) {
+        List<ParameterInfo> result = new ArrayList<>();
+        Type[] genericParameterTypes = Arrays.stream(closure.getClass().getMethods()).filter(it -> it.getName().equals("call")).findFirst().get().getGenericParameterTypes();
+        if (closure.getParameterTypes().length < genericParameterTypes.length) {
+            genericParameterTypes = closure.getParameterTypes();
+        }
+        Annotation[][] annotations = Arrays.stream(closure.getClass().getMethods()).filter(it -> it.getName().equals("call")).findFirst().get().getParameterAnnotations();
+        for (int i = 0; i < genericParameterTypes.length; i++) {
             boolean transposed = false;
+            for (Annotation annotation : annotations[i]) {
+                if (annotation instanceof Transpose) {
+                    transposed = ((Transpose) annotation).value();
+                }
+            }
             result.add(new ParameterInfoGroovy(genericParameterTypes[i], transposed));
         }
         return result;

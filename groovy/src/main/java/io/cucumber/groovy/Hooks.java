@@ -60,7 +60,7 @@ public class Hooks {
                 if (orderSet) {
                     throw new CucumberException("Two order (Integer) arguments found; " +
                             order + ", and; " +
-                            (Integer) o);
+                            o);
                 }
                 order = (Integer) o;
                 orderSet = true;

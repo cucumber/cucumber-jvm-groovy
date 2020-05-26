@@ -17,12 +17,12 @@ class GroovyParameterTypeDefinition extends AbstractParamGlueDefinition implemen
     GroovyParameterTypeDefinition(String name, String pattern, Method method, boolean useForSnippets, boolean preferForRegexpMatch, Lookup lookup) {
         super(requireValidMethod(method), lookup);
         this.parameterType = new ParameterType<>(
-            name.isEmpty() ? method.getName() : name,
-            singletonList(pattern),
-            this.method.getGenericReturnType(),
-            this::execute,
-            useForSnippets,
-            preferForRegexpMatch
+                name.isEmpty() ? method.getName() : name,
+                singletonList(pattern),
+                this.method.getGenericReturnType(),
+                this::execute,
+                useForSnippets,
+                preferForRegexpMatch
         );
     }
 
@@ -55,12 +55,12 @@ class GroovyParameterTypeDefinition extends AbstractParamGlueDefinition implemen
 
     private static InvalidMethodSignatureException createInvalidSignatureException(Method method) {
         return builder(method)
-            .addAnnotation(io.cucumber.groovy.ParameterType.class)
-            .addSignature("public Author parameterName(String all)")
-            .addSignature("public Author parameterName(String captureGroup1, String captureGroup2, ...ect )")
-            .addSignature("public Author parameterName(String... captureGroups)")
-            .addNote("Note: Author is an example of the class you want to convert captureGroups to")
-            .build();
+                .addAnnotation(io.cucumber.groovy.ParameterType.class)
+                .addSignature("public Author parameterName(String all)")
+                .addSignature("public Author parameterName(String captureGroup1, String captureGroup2, ...ect )")
+                .addSignature("public Author parameterName(String... captureGroups)")
+                .addNote("Note: Author is an example of the class you want to convert captureGroups to")
+                .build();
     }
 
     @Override

@@ -8,8 +8,8 @@ import java.util.List;
 
 abstract class AbstractStepGlueDefinition implements Located {
 
-    private final StackTraceElement location;
     protected final Closure body;
+    private final StackTraceElement location;
 
     AbstractStepGlueDefinition(Closure body, StackTraceElement location) {
         this.location = location;
@@ -27,8 +27,7 @@ abstract class AbstractStepGlueDefinition implements Located {
     }
 
     List<ParameterInfo> getParameterInfos() {
-        Class[] parameterTypes = body.getParameterTypes();
-        return ParameterInfoGroovy.fromTypes(parameterTypes);
+        return ParameterInfoGroovy.fromTypes(body);
     }
 
 }

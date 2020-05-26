@@ -56,12 +56,12 @@ final class MethodScanner {
 
     private static boolean isTypeAnnotation(Annotation annotation) {
         Class<? extends Annotation> annotationClass = annotation.annotationType();
-        return  annotationClass.equals(ParameterType.class)
-            || annotationClass.equals(DataTableType.class)
-            || annotationClass.equals(DefaultParameterTransformer.class)
-            || annotationClass.equals(DefaultDataTableEntryTransformer.class)
-            || annotationClass.equals(DefaultDataTableCellTransformer.class)
-            || annotationClass.equals(DocStringType.class);
+        return annotationClass.equals(ParameterType.class)
+                || annotationClass.equals(DataTableType.class)
+                || annotationClass.equals(DefaultParameterTransformer.class)
+                || annotationClass.equals(DefaultDataTableEntryTransformer.class)
+                || annotationClass.equals(DefaultDataTableCellTransformer.class)
+                || annotationClass.equals(DocStringType.class);
     }
 
 }

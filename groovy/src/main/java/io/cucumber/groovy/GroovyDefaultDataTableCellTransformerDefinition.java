@@ -16,7 +16,7 @@ class GroovyDefaultDataTableCellTransformerDefinition extends AbstractDatatableE
     GroovyDefaultDataTableCellTransformerDefinition(Method method, Lookup lookup, String[] emptyPatterns) {
         super(requireValidMethod(method), lookup, emptyPatterns);
         this.transformer = (cellValue, toValueType) ->
-            execute(replaceEmptyPatternsWithEmptyString(cellValue), toValueType);
+                execute(replaceEmptyPatternsWithEmptyString(cellValue), toValueType);
     }
 
     private static Method requireValidMethod(Method method) {
@@ -43,10 +43,10 @@ class GroovyDefaultDataTableCellTransformerDefinition extends AbstractDatatableE
 
     private static InvalidMethodSignatureException createInvalidSignatureException(Method method) {
         return builder(method)
-            .addAnnotation(DefaultDataTableCellTransformer.class)
-            .addSignature("Object defaultDataTableCell(String fromValue, Type toValueType)")
-            .addSignature("Object defaultDataTableCell(Object fromValue, Type toValueType)")
-            .build();
+                .addAnnotation(DefaultDataTableCellTransformer.class)
+                .addSignature("Object defaultDataTableCell(String fromValue, Type toValueType)")
+                .addSignature("Object defaultDataTableCell(Object fromValue, Type toValueType)")
+                .build();
     }
 
     @Override

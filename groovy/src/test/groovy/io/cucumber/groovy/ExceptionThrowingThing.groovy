@@ -9,7 +9,7 @@ class ExceptionThrowingThing {
         try {
             this.foo()
             null
-        } catch(RuntimeException e) {
+        } catch (RuntimeException e) {
             e
         }
     }

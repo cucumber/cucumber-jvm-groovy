@@ -18,8 +18,8 @@ public class GroovyHookDefinition extends AbstractStepGlueDefinition implements 
             Closure body,
             StackTraceElement location,
             GroovyBackend backend) {
-        super(body,location);
-        this.tagExpression = requireNonNull(tagExpression, "tag-expression may not be null");;
+        super(body, location);
+        this.tagExpression = requireNonNull(tagExpression, "tag-expression may not be null");
         this.order = order;
         this.backend = backend;
     }
