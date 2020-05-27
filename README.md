@@ -37,3 +37,20 @@ The test uses a mix of compiled and interpreted step definitions which makes the
 1. `-cp target/test-classes;./bin/cucumber-groovy-shaded.jar` tells groovy where to find the compiled class files and needed dependencies for `TypeRegistryConfigurer` descendants.
 2. `--glue classpath:cucumber/runtime/groovy` or `--glue classpath:cucumber.runtime.groovy --glue src/test/resources` is required so that cucumber finds the compiled step definitions
 3. The last parameter provides a feature or a path with features
+
+## Getting started
+
+- [Installation](./docs/install.md)
+- Upgrade notes
+  - [Version 5.x](docs/upgrade_v5.md)
+- Documentation
+  - [Basic usage](docs/usage.md)
+  - [Step Definitions](docs/step_definitions.md)
+    - [DataTables](docs/datatables.md)
+  - [Hooks](docs/hooks.md)
+  - [Transformers](docs/transformers.md)
+    - [Default Jackson DataTable Transformer](docs/default_jackson_datatable_transformer.md)
+- [Example project](examples/README.md)
+- [Reference documentation for Java](https://docs.cucumber.io/docs/cucumber/)
+- [Changelog](CHANGELOG.md)
+

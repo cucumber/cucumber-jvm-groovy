@@ -12,7 +12,7 @@ final Person expectedPerson = new Person("Astrid", "Lindgren")
 final Person mononymousPerson = new Person("Plato", "")
 
 @DataTableType
-Author singleAuthorTransformer(DataTable table) {
+static Author singleAuthorTransformer(DataTable table) {
     return authorEntryTransformer(table.asMaps().get(0))
 }
 
