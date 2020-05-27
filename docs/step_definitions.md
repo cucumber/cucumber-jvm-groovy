@@ -38,3 +38,10 @@ Given(~/'^I have (\d+) cucumbers in my belly$'/){ int cucumberCount ->
   // Do something    
 }
 ```
+
+To implement multiple gherkin steps in a single cucumber step:
+```groovy
+Given([~/^I have (\d+) cuke in my belly/, ~/^I have (\d+) cukes in my belly/] as Pattern[]) { int cukes ->
+  // Do something 
+}
+```

@@ -41,8 +41,6 @@ The test uses a mix of compiled and interpreted step definitions which makes the
 ## Getting started
 
 - [Installation](./docs/install.md)
-- Upgrade notes
-  - [Version 5.x](docs/upgrade_v5.md)
 - Documentation
   - [Basic usage](docs/usage.md)
   - [Step Definitions](docs/step_definitions.md)

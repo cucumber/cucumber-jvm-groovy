@@ -20,18 +20,28 @@ As well as default transformers for:
 
 ## String to any
 
-`ParameterType` allows to transform a String value from a Cucumber expression to a custom type.
+`ParameterType` annotation allows to transform a String value from a Cucumber expression to a custom type.
 
 It is defined by a name (used in the steps definitions) and a regex.
 Each group of the regex will map to a parameter of the transformation function.
 
 For instance, the following transformer can be defined:
-```scala
-case class Point(x: Int, y: Int)
+```groovy
+class Point{
+     int x
+     int y
 
-ParameterType("coordinates", "(.+),(.+)") { (x, y) =>
-  Point(x.toInt, y.toInt)
+    Point(int x, int y) {
+        this.x = x
+        this.y = y
+    }
 }
+
+@ParameterType(name = "coordinates", value = "(.+),(.+)")
+Point pointTransformer(String x, String y){
+    new Point(x.toInteger(), y.toInteger())
+}
+
 ```
 
 And used like this:
@@ -39,24 +49,29 @@ And used like this:
 Given balloon coordinates 123,456 in the game
 ```
 
-```scala
-Given("balloon coordinates {coordinates} in the game") { (coordinates: Point) =>
-  // Do something with the coordinates
+```groovy
+Given(/balloon coordinates {coordinates} in the game/) { Point point ->
+    //Do something
 }
 ```
 
-**Limitation:** there is a current limitation to 22 parameters in the `ParameterType` definition.
-
 ## DocString to any
 
-`DocStringType` allows to transform DocString values (multiline string) to a custom type.
+`DocStringType` annotation allows to transform DocString values (multiline string) to a custom type.
 
 For instance, the following transformer can be defined:
-```scala
-case class JsonText(json: String)
+```groovy
+class JsonText{
+    String json
 
-DocStringType("json") { text =>
-  JsonText(text)
+    JsonText(String json) {
+        this.json = json
+    }
+}
+
+@DocStringType(contentType = "json")
+JsonText jsonTransformer(String json){
+    new JsonText(json)
 }
 ```
 
@@ -70,9 +85,9 @@ Given the following json text
 """
 ```
 
-```scala
-Given("the following json text") { json: JsonText =>
-  // Do something with JsonText
+```groovy
+Given(/the following json text/) { JsonText jsonText ->
+    //Do something
 }
 ```
 
@@ -96,11 +111,25 @@ See also the [Datatable reference](https://github.com/cucumber/cucumber/tree/mas
 ### Lines with named headers
 
 For instance, the following transformer can be defined:
-```scala
-case class Author(name: String, surname: String, famousBook: String)
+```groovy
+class Author {
+    String name
+    String surname
+    String famousBook
 
-DataTableType { entry: Map[String, String] =>
-  Author(entry("name"), entry("surname"), entry("famousBook"))
+    Author(String name, String surname, String famousBook) {
+        this.name = name
+        this.surname = surname
+        this.famousBook = famousBook
+    }
+}
+
+@DataTableType
+Author authorEntryTransformer(Map<String, String> entry) {
+     new Author(
+            entry.get("name"),
+            entry.get("surname"),
+            entry.get("famousBook"))
 }
 ```
 
@@ -112,25 +141,40 @@ Given the following authors
 | Robert | Bob     | Le Petit Prince |
 ```
 
-```scala
-Given("the following authors") { (authors: java.util.List[Author]) =>
-  // Do something
+```groovy
+Given(/the following authors/) { List<Author> authors ->
+    //Do something with authors
 }
 
 // Or using DataTable
-Given("the following authors") { (table: DataTable) =>
-  val authors = table.asList[Author](classOf[Author])
+Given(/the following authors/) { DataTable table ->
+    List<Author> authors = table.asList(Author)
+    //Do something with authors
 }
 ```
 
 ### Lines without headers
 
 For instance, the following transformer can be defined:
-```scala
-case class Author(name: String, surname: String, famousBook: String)
+```groovy
+class Author {
+    String name
+    String surname
+    String famousBook
 
-DataTableType { row: Seq[String] =>
-  Author(row(0), row(1), row(2))
+    Author(String name, String surname, String famousBook) {
+        this.name = name
+        this.surname = surname
+        this.famousBook = famousBook
+    }
+}
+
+@DataTableType
+Author authorEntryTransformer(List<String> row) {
+     new Author(
+            row.get(0),
+            row.get(1),
+            row.get(2))
 }
 ```
 
@@ -141,30 +185,48 @@ Given the following authors
 | Robert | Bob     | Le Petit Prince |
 ```
 
-```scala
-Given("the following authors") { (authors: java.util.List[Author]) =>
-  // Do something
+```groovy
+Given(/the following authors/) { List<Author> authors ->
+    //Do something with authors
 }
 
 // Or using DataTable
-Given("the following authors") { (table: DataTable) =>
-  val authors = table.asList[Author](classOf[Author])
+Given(/the following authors/) { DataTable table ->
+    List<Author> authors = table.asList(Author)
+    //Do something with authors
 }
 ```
 
 ### DataTable
 
 For instance, the following transformer can be defined:
-```scala
-case class Author(name: String, surname: String, famousBook: String)
-case class GroupOfAuthor(authors: Seq[Author])
+```groovy
+class Author {
+    String name
+    String surname
+    String famousBook
 
-DataTableType { table: DataTable =>
-  val authors = table.asMaps().asScala
-      .map(_.asScala)
-      .map(entry => Author(entry("name"), entry("surname"), entry("famousBook")))
-      .toSeq
-  GroupOfAuthor(authors)
+    Author(String name, String surname, String famousBook) {
+        this.name = name
+        this.surname = surname
+        this.famousBook = famousBook
+    }
+}
+
+class GroupOfAuthors{
+    List<Author> authors
+
+    GroupOfAuthors(List<Author> authors) {
+        this.authors = authors
+    }
+}
+
+@DataTableType
+GroupOfAuthors authorEntryTransformer(DataTable table) {
+    List<Author> authors = table.asMaps().stream()
+                                          .map({ entry -> new Author(entry.get("name"), entry.get("surname"), entry.get("famousBook")) })
+                                          .collect(Collectors.toList())
+     new GroupOfAuthors(authors)
 }
 ```
 
@@ -179,20 +241,27 @@ Given the following authors
 | Robert | Bob     | Le Petit Prince |
 ```
 
-```scala
-Given("the following authors") { (table: DataTable) =>
-  val authors = table.convert[GroupOfAuthor](classOf[GroupOfAuthor], false)
+```groovy
+Given(/the following authors/) { DataTable table ->
+   def authors = table.convert(GroupOfAuthors,false)
 }
 ```
 
 ### Cell
 
 For instance, the following transformer can be defined:
-```scala
-case class RichCell(content: String)
+```groovy
+class RichCell{
+    String content
 
-DataTableType { cell: String =>
-  RichCell(cell)
+    RichCell(String content) {
+        this.content = content
+    }
+}
+
+@DataTableType
+RichCell transformCell(String content){
+    new RichCell(content)
 }
 ```
 
@@ -203,14 +272,15 @@ Given the following authors
 | Robert | Bob     | Le Petit Prince |
 ```
 
-```scala
-Given("the following authors") { (authors: java.util.List[java.util.List[RichCell]]) =>
-  // Do something
+```groovy
+Given(/the following authors/) { List<List<RichCell>> authors ->
+   //Do something with authors
 }
 
 // Or using DataTable
-Given("the following authors") { (table: DataTable) =>
-  val authors = table.asLists[RichCell](classOf[RichCell]))
+Given(/the following authors/) { DataTable table->
+    def authors = table.asLists(RichCell)
+   //Do something with authors
 }
 ```
 
@@ -222,14 +292,15 @@ Given the following authors
 | Robert | Bob     | Le Petit Prince |
 ```
 
-```scala
-Given("the following authors") { (authors: java.util.List[java.util.Map[String, RichCell]]) =>
-  // Do something
+```groovy
+Given(/the following authors/) { List<Map<String,RichCell>> authors ->
+   //Do something with authors
 }
 
 // Or using DataTable
-Given("the following authors") { (table: DataTable) =>
-  val authors = table.asMaps[String, RichCell](classOf[String], classOf[RichCell])
+Given(/the following authors/) { DataTable table->
+    def authors = table.asMaps(String,RichCell)
+   //Do something with authors
 }
 ```
 
@@ -241,11 +312,25 @@ If you need to have empty values, you can define a replacement like `[empty]` th
 To do so, you can add a parameter to a `DataTableType` definition.
 
 For instance, with the following definition:
-```scala
-case class Author(name: String, surname: String, famousBook: String)
+```groovy
+class Author {
+    String name
+    String surname
+    String famousBook
 
-DataTableType("[empty]") { (entry: Map[String, String]) =>
-  Author(entry("name"), entry("surname"), entry("famousBook"))
+    Author(String name, String surname, String famousBook) {
+        this.name = name
+        this.surname = surname
+        this.famousBook = famousBook
+    }
+}
+
+@DataTableType(replaceWithEmptyString = "[empty]")
+Author authorEntryTransformer(List<String> row) {
+    new Author(
+            row.get(0),
+            row.get(1),
+            row.get(2))
 }
 ```
 
@@ -257,7 +342,7 @@ Given the following authors
 | [empty] | Bob     | Le Petit Prince |
 ```
 
-You would actually get a list containing `Author("Alan", "Alou", "The Lion King")` and `Author("", "Bob", "Le Petit Prince")`.
+You would actually get a list containing `Author{name='Alan', surname='Alou', famousBook='The Lion King'}` and `Author{name='', surname='Bob', famousBook='Le Petit Prince'}`.
 
 ## Default transformers
 
@@ -268,15 +353,17 @@ They can be used with object mappers like Jackson to easily convert from well kn
 ### String
 
 For instance, the following definition:
-```scala
-DefaultParameterTransformer { (fromValue: String, toValueType: java.lang.Type) =>
-  // Apply logic to convert from String to toValueType
+```groovy
+@DefaultParameterTransformer
+Object anonymous(String fromValue, Type toValueType) {
+    ObjectMapper objectMapper = new ObjectMapper()
+    objectMapper.convertValue(fromValue, objectMapper.constructType(toValueType));
 }
 ```
 
 Will be used to convert with such step definitions:
-```scala
-Given("A step with a undefined {} string") { (param: SomeType) =>
+```groovy
+Given("A step with a undefined {} string") { SomeType someType ->
   // The string between {} will be converted to SomeType
 }
 ```
@@ -286,43 +373,61 @@ Given("A step with a undefined {} string") { (param: SomeType) =>
 #### Lines with named headers
 
 For instance the following definition:
-```scala
-DefaultDataTableEntryTransformer("[empty]") { (fromValue: Map[String, String], toValueType: java.lang.Type) =>
-  // Apply some logic to convert from Map to toValueType
+```groovy
+class Author {
+    @JsonProperty("name")
+    String name
+    @JsonProperty("surname")
+    String surname
+    @JsonProperty("famousBook")
+    String famousBook
+}
+@DefaultDataTableEntryTransformer(replaceWithEmptyString = "[empty]")
+Object defaultTableEntryTransformer(Map<String,String> fromValue, Type toValueType) {
+    ObjectMapper objectMapper = new ObjectMapper()
+    objectMapper.convertValue(fromValue, objectMapper.constructType(toValueType));
 }
 ```
 
 Will be used to convert with such step definitions:
-```scala
-Given("A step with a datatable") { (rows: java.util.List[SomeType]) =>
-  // Do something
+```groovy
+Given(/the following authors/) { List<Author> authors ->
+   //Do something with authors
 }
 
 // Or DataTable
-Given("A step with a datatable") { (dataTable: DataTable) =>
-  val table = dataTable.asList[SomeType](classOf[SomeType])
+Given(/the following authors/) { DataTable table ->
+    def authors = table.asList(Author1)
+   //Do something with authors
 }
 ```
-
-This is what to `DefaultJacksonDataTableTransformer` uses.
 
 #### Cells
 
 For instance the following definition:
-```scala
-DefaultDataTableCellTransformer("[empty]") { (fromValue: String, toValueType: java.lang.Type) =>
-  // Apply some logic to convert from String to toValueType
+```groovy
+class RichCell{
+    String content
+    RichCell(String content){
+        this.content = content
+    }
+}
+
+@DefaultDataTableCellTransformer(replaceWithEmptyString = "[empty]")
+Object defaultTableEntryTransformer(String fromValue, Type toValueType) {
+    ObjectMapper objectMapper = new ObjectMapper()
+    objectMapper.convertValue(fromValue, objectMapper.constructType(toValueType));
 }
 ```
 
 Will be used to convert with such step definitions:
-```scala
-Given("A step with a datatable") { (rows: java.util.List[java.util.List[SomeType]]) =>
-  // Do something
+```groovy
+Given(/the following authors/) { List<List<RichCell>> authors ->
+   //Do something with authors
 }
 
 // Or DataTable
-Given("A step with a datatable") { (dataTable: DataTable) =>
-  val table = dataTable.asLists[SomeType](classOf[SomeType])
+Given(/the following authors/) { DataTable table ->
+    def authors = table.asLists(RichCell)
 }
 ```
