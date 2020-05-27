@@ -49,7 +49,6 @@ The test uses a mix of compiled and interpreted step definitions which makes the
     - [DataTables](docs/datatables.md)
   - [Hooks](docs/hooks.md)
   - [Transformers](docs/transformers.md)
-    - [Default Jackson DataTable Transformer](docs/default_jackson_datatable_transformer.md)
 - [Example project](examples/README.md)
 - [Reference documentation for Java](https://docs.cucumber.io/docs/cucumber/)
 - [Changelog](CHANGELOG.md)

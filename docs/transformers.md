@@ -265,8 +265,6 @@ Default transformers are used when there is no specific transformer.
 
 They can be used with object mappers like Jackson to easily convert from well known strings to objects.
 
-See also [Default Jackson DataTable Transformer](default_jackson_datatable_transformer.md).
-
 ### String
 
 For instance, the following definition:
