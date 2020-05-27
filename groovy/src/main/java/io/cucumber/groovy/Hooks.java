@@ -5,10 +5,11 @@ import groovy.lang.Closure;
 import io.cucumber.core.exception.CucumberException;
 import org.apiguardian.api.API;
 
+@API(status = API.Status.STABLE)
 public class Hooks {
-    private static final int DEFAULT_ORDER = 10000;
+    private static final int DEFAULT_ORDER = 1000;
 
-    @API(status = API.Status.STABLE)
+
     public static void World(Closure body) {
         GroovyBackend.getInstance().registerWorld(body);
     }
@@ -23,7 +24,6 @@ public class Hooks {
      *
      * @param args the hook parameters
      */
-    @API(status = API.Status.STABLE)
     public static void Before(Object... args) {
         addHook(args, true, false);
     }
@@ -38,17 +38,14 @@ public class Hooks {
      *
      * @param args the hook parameters
      */
-    @API(status = API.Status.STABLE)
     public static void After(Object... args) {
         addHook(args, false, false);
     }
 
-    @API(status = API.Status.STABLE)
     public static void AfterStep(Object... args) {
         addHook(args, false, true);
     }
 
-    @API(status = API.Status.STABLE)
     public static void BeforeStep(Object... args) {
         addHook(args, true, true);
     }
