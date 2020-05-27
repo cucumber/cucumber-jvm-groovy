@@ -14,13 +14,13 @@ Given the following table as Map of Map
 | row3 | val31 | val32 | val33 |
 ```
 
-```scala
-Given("the following table as Map of Map") { (table: JavaMap[String, JavaMap[String, String]]) =>
-  // Map(
-  //    "row1" -> Map("key1" -> "val11", "key2" -> "val12", "key3" -> "val13"),
-  //    "row2" -> Map("key1" -> "val21", "key2" -> "val22", "key3" -> "val23"),
-  //    "row3" -> Map("key1" -> "val31", "key2" -> "val32", "key3" -> "val33")
-  // )
+```groovy
+Given("the following table as Map of Map") { Map<Map<String>> table->
+  // Map{
+  //    "row1" : Map{"key1" : "val11", "key2" : "val12", "key3" : "val13"},
+  //    "row2" : Map{"key1" : "val21", "key2" : "val22", "key3" : "val23"},
+  //    "row3" : Map{"key1" : "val31", "key2" : "val32", "key3" : "val33"}
+  // }
 }
 ```
 
@@ -34,13 +34,13 @@ Given the following table as List of Map
 | val31 | val32 | val33 |
 ```
 
-```scala
-Given("the following table as List of Map") { (table: JavaList[JavaMap[String, String]]) =>
-  // Seq(
+```groovy
+Given("the following table as List of Map") { List<Map<String>> table ->
+  // List[
   //   Map("key1" -> "val11", "key2" -> "val12", "key3" -> "val13"),
   //   Map("key1" -> "val21", "key2" -> "val22", "key3" -> "val23"),
   //   Map("key1" -> "val31", "key2" -> "val32", "key3" -> "val33")
-  // )
+  // ]
 }
 ```
 
@@ -53,13 +53,13 @@ Given the following table as Map of List
 | row3 | val31 | val32 | val33 |
 ```
 
-```scala
-Given("the following table as Map of List") { (table: JavaMap[String, JavaList[String]]) =>
-  // Map(
-  //   "row1" -> Seq("val11", "val12", "val13"),
-  //   "row2" -> Seq("val21", "val22", "val23"),
-  //   "row3" -> Seq("val31", "val32", "val33")
-  // )
+```groovy
+Given("the following table as Map of List") { Map<List<String>> table->
+  // Map{
+  //   "row1" : List["val11", "val12", "val13"],
+  //   "row2" : List["val21", "val22", "val23"],
+  //   "row3" : List["val31", "val32", "val33"]
+  // }
 }
 ```
 
@@ -73,13 +73,13 @@ Given the following table as List of List
 | val31 | val32 | val33 |
 ```
 
-```scala
-Given("the following table as List of List") { (table: JavaList[JavaList[String]]) =>
-  // Seq(
-  //   Seq("val11", "val12", "val13"),
-  //   Seq("val21", "val22", "val23"),
-  //   Seq("val31", "val32", "val33")
-  // )
+```groovy
+Given("the following table as List of List") { List<List<String>> table ->
+  // List[
+  //   List["val11", "val12", "val13"],
+  //   List["val21", "val22", "val23"],
+  //   List["val31", "val32", "val33"]
+  // ]
 }
 ```
 
@@ -92,13 +92,13 @@ Given the following table as Map
 | row3 | val31 |
 ```
 
-```scala
-Given("the following table as Map") { (table: JavaMap[String, String]) =>
-  // Map(
-  //   "row1" -> "val11",
-  //   "row2" -> "val21",
-  //   "row3" -> "val31"
-  // )
+```groovy
+Given("the following table as Map") { Map<String> table->
+  // Map{
+  //   "row1" : "val11",
+  //   "row2" : "val21",
+  //   "row3" : "val31"
+  // {
 }
 ```
 
@@ -111,13 +111,13 @@ Given the following table as List
 | val31 |
 ```
 
-```scala
-Given("the following table as List") { (table: JavaList[String]) =>
-  // Seq(
+```groovy
+Given("the following table as List") { List<String> table->
+  // List[
   //   "val11",
   //   "val21",
   //   "val31"
-  // )
+  // ]
 }
 ```
 
@@ -132,8 +132,8 @@ Given the following table as DataTable
 | val31 | val32 | val33 |
 ```
 
-```scala
-Given("the following table as DataTable") { (table: DataTable) =>
+```groovy
+Given("the following table as DataTable") { DataTable table->
   // Use the table any way you want, including any of the options defined previously
 }
 ```
