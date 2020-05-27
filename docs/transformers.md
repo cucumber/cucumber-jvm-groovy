@@ -55,6 +55,31 @@ Given(/balloon coordinates {coordinates} in the game/) { Point point ->
 }
 ```
 
+## Date transformation
+
+For instance, the following transformer can be defined:
+
+```groovy
+@ParameterType(name = "iso8601Date",value = "([0-9]{4})-([0-9]{2})-([0-9]{2})")
+LocalDate parameterTypeIso8601Date(String year, String month, String day) {
+    LocalDate.of(Integer.parseInt(year), Integer.parseInt(month), Integer.parseInt(day))
+}
+```
+
+```gherkin
+Given today's date is "1971-10-03" and tomorrow is:
+"""
+1971-10-04
+"""
+```
+
+```groovy
+Given('today\'s date is "{iso8601Date}" and tomorrow is:') { LocalDate today, String tomorrow ->
+    assertEquals(3, today.getDayOfMonth())
+    assertEquals('1971-10-04',tomorrow)
+}
+```
+
 ## DocString to any
 
 `DocStringType` annotation allows to transform DocString values (multiline string) to a custom type.
