@@ -13,7 +13,7 @@ installdoc=$(</dev/stdin)
 # Maven
 installdoc=$(echo "${installdoc}" | sed "s/<version>[0-9]\+.[0-9]\+.[0-9]\+<\/version>/<version>${new_version}<\/version>/g")
 # Gradle
-installdoc=$(echo "${installdoc}" | sed "s/version: '[0-9]\+.[0-9]\+.[0-9]\+'/ '${new_version}'/g")
+installdoc=$(echo "${installdoc}" | sed "s/version: '[0-9]\+.[0-9]\+.[0-9]\+'/version: '${new_version}'/g")
 
 # Output
 echo "${installdoc}"
