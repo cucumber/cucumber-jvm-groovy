@@ -19,6 +19,7 @@ See also the [CHANGELOG](https://github.com/cucumber/cucumber-jvm/blob/master/CH
 
 ### Changed
 
+- Extract groovy script for keywords generation from pom ([glib-briia](https://github.com/glib-briia))
 - Migrated to use  `cucumber-core` 5.1.3 ([glib-briia](https://github.com/glib-briia))
 - Bump jackson.version from 2.9.9 to 2.10.0 in /groovy [\#18](https://github.com/cucumber/cucumber-jvm-groovy/pull/18) ([dependabot[bot]](https://github.com/apps/dependabot))
 - \[Build\] Remove automated release steps [\#16](https://github.com/cucumber/cucumber-jvm-groovy/pull/16) ([mpkorstanje](https://github.com/mpkorstanje))
