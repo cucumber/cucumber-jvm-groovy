@@ -40,7 +40,7 @@ import java.lang.annotation.Target;
  * object:
  *
  * <pre>
- * Given("^the user is$"){ &#064;Transpose User user ->
+ * Given("^the user is$"){ &#064;Transpose User user -&gt;
  *     this.user = user;
  * }
  * </pre>
