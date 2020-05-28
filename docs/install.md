@@ -7,7 +7,7 @@
 To use Cucumber Groovy in your project, add the following line to your `build.gradle`:
 
 ```
-testCompile group: 'io.cucumber', name:'cucumber-groovy', version: '4.7.1'
+testCompile group: 'io.cucumber', name:'cucumber-groovy', version: '5.1.3'
 ```
 
 ### Maven
@@ -18,7 +18,7 @@ To use Cucumber Groovy in your project, add the following dependency to your `po
 <dependency>
     <groupId>io.cucumber</groupId>
     <artifactId>cucumber-groovy</artifactId>
-    <version>4.7.1</version>
+    <version>5.1.3</version>
     <scope>test</scope>
 </dependency>
 ```

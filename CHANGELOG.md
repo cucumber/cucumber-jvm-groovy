@@ -9,6 +9,18 @@ See also the [CHANGELOG](https://github.com/cucumber/cucumber-jvm/blob/master/CH
 ----
 ## [Unreleased] (In Git)
 
+### Added
+
+### Changed
+
+### Deprecated
+
+### Removed
+
+### Fixed
+
+## [5.1.3] (2020-05-28)
+
 ### Added 
 
 - Added support for annotation based transformers configuration ([glib-briia](https://github.com/glib-briia))
@@ -137,7 +149,8 @@ See also the [CHANGELOG](https://github.com/cucumber/cucumber-jvm/blob/master/CH
 - Migrate to cucumber jvm 3.0.2 [\#6](https://github.com/cucumber/cucumber-jvm-groovy/pull/6) ([glib-briia](https://github.com/glib-briia))
 
 <!-- Releases -->
-[Unreleased]: https://github.com/cucumber/cucumber-jvm-scala/compare/v4.7.1...master
+[Unreleased]: https://github.com/cucumber/cucumber-jvm-scala/compare/v5.1.3...master
+[5.7.1]:  https://github.com/cucumber/cucumber-jvm-groovy/compare/v4.7.1...v5.1.3
 [5.7.1]:  https://github.com/cucumber/cucumber-jvm-groovy/compare/v4.7.0...v4.7.1
 [5.7.0]:  https://github.com/cucumber/cucumber-jvm-groovy/compare/v4.6.0...v4.7.0
 [4.6.0]:  https://github.com/cucumber/cucumber-jvm-groovy/compare/v4.5.4...v4.6.0
