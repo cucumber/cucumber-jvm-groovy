@@ -14,7 +14,7 @@ GherkinDialectProvider.DIALECTS.keySet().each { language ->
     if (!unsupported.contains(normalized_language)) {
         def binding = ["i18n":dialect, "normalized_language":normalized_language]
         template = engine.createTemplate(templateSource).make(binding)
-        def file = new File(project.baseDir, "target${File.separator}generated-sources${File.separator}i18n${File.separator}java${File.separator}cucumber${File.separator}api${File.separator}groovy${File.separator}${normalized_language}.java")
+        def file = new File(project.baseDir, "target${File.separator}generated-sources${File.separator}i18n${File.separator}java${File.separator}io${File.separator}cucumber${File.separator}groovy${File.separator}${normalized_language}.java")
         file.parentFile.mkdirs()
         file.write(template.toString(), "UTF-8")
     }
