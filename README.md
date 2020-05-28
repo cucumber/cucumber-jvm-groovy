@@ -18,6 +18,7 @@ See: https://cucumber.io/support
     - [DataTables](docs/datatables.md)
   - [Hooks](docs/hooks.md)
   - [Transformers](docs/transformers.md)
+  - [World](docs/world.md)
 - [Example project](examples/README.md)
 - [Reference documentation for Java](https://docs.cucumber.io/docs/cucumber/)
 - [Changelog](CHANGELOG.md)

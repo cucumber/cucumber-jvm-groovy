@@ -9,7 +9,7 @@ this.metaClass.mixin(EN)
 this.metaClass.mixin(Hooks)
 
 World {
-    new CustomWorld();
+    new CustomWorld()
 }
 
 Given(~'^I have (\\d+) apples in my belly') { int apples ->
