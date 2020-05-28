@@ -4,7 +4,7 @@
     <parent>
         <groupId>io.cucumber</groupId>
         <artifactId>cucumber-jvm-groovy</artifactId>
-        <version>5.1.3-SNAPSHOT</version>
+        <version>5.1.3</version>
     </parent>
 
     <artifactId>cucumber-groovy</artifactId>
@@ -134,7 +134,7 @@
                         <configuration>
                             <target>
                                 <taskdef name="groovy" classname="org.codehaus.groovy.ant.Groovy" classpathref="maven.plugin.classpath" />
-                                <groovy src="src/main/groovy/generate-keywords.groovy"/>
+                                <groovy src="src/main/groovy/generate-keywords.groovy" />
                             </target>
                         </configuration>
                     </execution>
