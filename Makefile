@@ -46,7 +46,7 @@ update-changelog:
 release: default update-changelog update-installdoc .commit-and-push-changelog-and-docs
 	mvn --batch-mode release:clean release:prepare -DautoVersionSubmodules=true -Darguments="-DskipTests=true -DskipITs=true -Darchetype.test.skip=true"
 	git checkout "v$(NEW_VERSION)"
-	mvn deploy -P-examples -P-compatibility -Psign-source-javadoc -DskipTests=true -DskipITs=true -Darchetype.test.skip=true
+	mvn deploy -P-examples -Psign-source-javadoc -DskipTests=true -DskipITs=true
 	git checkout $(CURRENT_BRANCH)
 .PHONY: release
 
