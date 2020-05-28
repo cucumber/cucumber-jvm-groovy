@@ -1,7 +1,7 @@
 package io.cucumber.groovy
 
 import com.fasterxml.jackson.databind.ObjectMapper
-import groovy.transform.Field
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule
 
 import java.lang.reflect.Type
 import java.time.LocalDate
@@ -24,6 +24,7 @@ LocalDate parameterTypeIso8601Date(String year, String month, String day) {
 @DefaultParameterTransformer
 Object anonymous(String fromValue, Type toValueType) {
     ObjectMapper objectMapper = new ObjectMapper()
+    objectMapper.registerModule(new JavaTimeModule())
     objectMapper.convertValue(fromValue, objectMapper.constructType(toValueType));
 }
 
@@ -33,6 +34,6 @@ Given('today\'s date is "{parameterTypeIso8601Date}" and tomorrow is:') { LocalD
     assertEquals('1971-10-04',tomorrow)
 }
 
-And('anonymous date is {}') { Date parsedDate ->
-    assertEquals( Date.parse("yyyy-MM-dd","2011-01-19"), parsedDate)
+And('anonymous date is {}') { LocalDate parsedDate ->
+    assertEquals( LocalDate.of(2011, 1, 19), parsedDate)
 }
