@@ -27,6 +27,14 @@ public final class Scenario {
         return delegate.getSourceTagNames();
     }
 
+    /**
+     * Returns the current status of this scenario.
+     * <p>
+     * The scenario status is calculate as the most severe status of the
+     * executed steps in the scenario so far.
+     *
+     * @return the current status of this scenario
+     */
     public Status getStatus() {
         return Status.valueOf(delegate.getStatus().name());
     }
@@ -40,12 +48,22 @@ public final class Scenario {
         delegate.embed(data, mediaType);
     }
 
+    @Deprecated
     public void embed(byte[] data, String mediaType, String name) {
-        delegate.embed(data, mediaType, name);
+        attach(data, mediaType, name);
     }
 
+    public void attach(byte[] data, String mediaType, String name) {
+        delegate.attach(data, mediaType, name);
+    }
+
+    @Deprecated
     public void write(String text) {
-        delegate.write(text);
+        log(text);
+    }
+
+    public void log(String text) {
+        delegate.log(text);
     }
 
     public String getName() {
