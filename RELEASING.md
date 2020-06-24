@@ -9,12 +9,12 @@ It is preferable to use the automated deployment process over the manual process
 need arise to setup another continuous integration system the [Manual deployment](#manual-deployment) section 
 describes how this works.
 
-## Check [![Build Status](https://travis-ci.org/cucumber/cucumber-jvm-groovy.svg?branch=master)](https://travis-ci.org/cucumber/cucumber-jvm-groovy) ##
+## Check [![Build Status](https://travis-ci.org/cucumber/cucumber-jvm-groovy.svg?branch=main)](https://travis-ci.org/cucumber/cucumber-jvm-groovy) ##
 
 Is the build passing?
 
 ```
-git checkout master
+git checkout main
 ```
 
 Also check if you can upgrade any dependencies:

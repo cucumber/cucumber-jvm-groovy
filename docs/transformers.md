@@ -131,7 +131,7 @@ Cucumber will interpret empty cells as `null`.
 But you can use a replacement to represent empty strings.
 See below.
 
-See also the [Datatable reference](https://github.com/cucumber/cucumber/tree/master/datatable).
+See also the [Datatable reference](https://github.com/cucumber/cucumber/tree/main/datatable).
 
 ### Lines with named headers
 

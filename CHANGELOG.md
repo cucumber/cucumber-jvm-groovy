@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/) and this project adheres to [Semantic Versioning](http://semver.org/).
 
-See also the [CHANGELOG](https://github.com/cucumber/cucumber-jvm/blob/master/CHANGELOG.md) from Cucumber Core.
+See also the [CHANGELOG](https://github.com/cucumber/cucumber-jvm/blob/main/CHANGELOG.md) from Cucumber Core.
 
 ----
 ## [Unreleased] (In Git)
@@ -149,7 +149,7 @@ See also the [CHANGELOG](https://github.com/cucumber/cucumber-jvm/blob/master/CH
 - Migrate to cucumber jvm 3.0.2 [\#6](https://github.com/cucumber/cucumber-jvm-groovy/pull/6) ([glib-briia](https://github.com/glib-briia))
 
 <!-- Releases -->
-[Unreleased]: https://github.com/cucumber/cucumber-jvm-scala/compare/v5.1.3...master
+[Unreleased]: https://github.com/cucumber/cucumber-jvm-scala/compare/v5.1.3...main
 [5.7.1]:  https://github.com/cucumber/cucumber-jvm-groovy/compare/v4.7.1...v5.1.3
 [5.7.1]:  https://github.com/cucumber/cucumber-jvm-groovy/compare/v4.7.0...v4.7.1
 [5.7.0]:  https://github.com/cucumber/cucumber-jvm-groovy/compare/v4.6.0...v4.7.0
