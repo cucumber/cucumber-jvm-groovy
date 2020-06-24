@@ -217,7 +217,9 @@
                 <artifactId>coveralls-maven-plugin</artifactId>
                 <configuration>
                     <sourceDirectories>
-                        <sourceDirectory>${project.build.outputDirectory}/generated-sources/i18n/java</sourceDirectory>
+                        <sourceDirectory>${project.build
+                        .outputDirectory}/generated-sources/i18n/java
+                            /io/cucumber/groovy</sourceDirectory>
                     </sourceDirectories>
                 </configuration>
             </plugin>
