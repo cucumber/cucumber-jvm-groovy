@@ -24,3 +24,6 @@ See: https://cucumber.io/support
 - [Reference documentation for Java](https://docs.cucumber.io/docs/cucumber/)
 - [Changelog](CHANGELOG.md)
 
+## They are using it
+
+You are using Cucumber Scala? We would love to know about you! Please open a PR to add your project or company to the list below.
