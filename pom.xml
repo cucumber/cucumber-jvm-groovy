@@ -1,7 +1,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <artifactId>cucumber-jvm-groovy</artifactId>
-    <version>5.7.0-SNAPSHOT</version>
+    <version>6.1.1-SNAPSHOT</version>
     <packaging>pom</packaging>
     <name>Cucumber-JVM: Groovy</name>
     <description>Cucumber for Groovy</description>
@@ -17,7 +17,7 @@
         <developer>
             <id>glib-briia</id>
             <name>Glib Briia</name>
-            <email>glib.briia@gmail.com</email>
+            <email>glib.briia@assertthat.com</email>
             <organization>AssertThat</organization>
             <organizationUrl>https://www.assertthat.com</organizationUrl>
         </developer>
