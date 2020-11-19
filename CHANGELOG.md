@@ -19,6 +19,8 @@ See also the [CHANGELOG](https://github.com/cucumber/cucumber-jvm/blob/main/CHAN
 
 ### Fixed
 
+## [6.1.1] (2020-11-19)
+
 ## [5.1.3] (2020-05-28)
 
 ### Added 
@@ -35,10 +37,6 @@ See also the [CHANGELOG](https://github.com/cucumber/cucumber-jvm/blob/main/CHAN
 - Migrated to use  `cucumber-core` 5.1.3 ([glib-briia](https://github.com/glib-briia))
 - Bump jackson.version from 2.9.9 to 2.10.0 in /groovy [\#18](https://github.com/cucumber/cucumber-jvm-groovy/pull/18) ([dependabot[bot]](https://github.com/apps/dependabot))
 - \[Build\] Remove automated release steps [\#16](https://github.com/cucumber/cucumber-jvm-groovy/pull/16) ([mpkorstanje](https://github.com/mpkorstanje))
-
-### Deprecated
-
-### Removed
 
 ### Fixed
 
@@ -149,7 +147,8 @@ See also the [CHANGELOG](https://github.com/cucumber/cucumber-jvm/blob/main/CHAN
 - Migrate to cucumber jvm 3.0.2 [\#6](https://github.com/cucumber/cucumber-jvm-groovy/pull/6) ([glib-briia](https://github.com/glib-briia))
 
 <!-- Releases -->
-[Unreleased]: https://github.com/cucumber/cucumber-jvm-scala/compare/v5.1.3...main
+[Unreleased]: https://github.com/cucumber/cucumber-jvm-scala/compare/v6.1.1...main
+[5.7.1]:  https://github.com/cucumber/cucumber-jvm-groovy/compare/v5.1.3...v6.1.1
 [5.7.1]:  https://github.com/cucumber/cucumber-jvm-groovy/compare/v4.7.1...v5.1.3
 [5.7.1]:  https://github.com/cucumber/cucumber-jvm-groovy/compare/v4.7.0...v4.7.1
 [5.7.0]:  https://github.com/cucumber/cucumber-jvm-groovy/compare/v4.6.0...v4.7.0
