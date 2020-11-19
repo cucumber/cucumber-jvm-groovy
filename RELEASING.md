@@ -1,15 +1,10 @@
 Releasing
 =========
 
-The process of deploying to maven central has been automated based on 
-the [Complete guide to continuous deployment to maven central from Travis CI](http://www.debonair.io/post/maven-cd/)
-and will be executed whenever a non-snapshot version is committed.
+The deployment process of `cucumber-jvm` is based on 
+[Deploying to OSSRH with Apache Maven](http://central.sonatype.org/pages/apache-maven.html#deploying-to-ossrh-with-apache-maven-introduction).
 
-It is preferable to use the automated deployment process over the manual process. However should travis.ci fail or should the 
-need arise to setup another continuous integration system the [Manual deployment](#manual-deployment) section 
-describes how this works.
-
-## Check [![Build Status](https://travis-ci.org/cucumber/cucumber-jvm-groovy.svg?branch=main)](https://travis-ci.org/cucumber/cucumber-jvm-groovy) ##
+## Check [![Build Status](https://github.com/cucumber/cucumber-jvm/workflows/Cucumber%20CI/badge.svg)](https://github.com/cucumber/cucumber-jvm/actions) ##
 
 Is the build passing?
 
@@ -20,87 +15,62 @@ git checkout main
 Also check if you can upgrade any dependencies:
 
 ```
-mvn versions:display-dependency-updates
+make update-dependency-versions
 ```
 
-## Prepare for release ##
+## Decide what the next version should be ##
 
-Replace version numbers in:
+Versions follow [Semantic Versioning](https://semver.org/spec/v2.0.0.html). To sum it up, it depends on what's changed (see `CHANGELOG.md`). Given a version number MAJOR.MINOR.PATCH:
 
-* `CHANGELOG.md`
+* Bump `MAJOR` when you make incompatible API changes:
+  * There are `Removed` entries, or `Changed` entries breaking compatibility
+  * A cucumber library dependency upgrade was major
+* Bump `MINOR` when you add functionality in a backwards compatible manner:
+  * There are `Added` entries, `Changed` entries preserving compatibility, or
+  `Deprecated` entries
+* Bump `PATCH` when you make backwards compatible bug fixes:
+  * There are `Fixed` entries
 
-Then run (replace X.Y.Z below with the next release number): 
+Display future version by running:
 
 ```
-git commit -am "Prepare for release X.Y.Z"
+make version
 ```
+
+Check if branch name and version are as expected. To change version run:
+
+```
+mvn versions:set -DnewVersion=X.Y.Z-SNAPSHOT
+```
+
+## Secrets ##
+
+Secrets are required to make releases. Members of the core team can install
+keybase and join the `cucumberbdd` team to access these secrets.
+
+During the release process, secrets are fetched from keybase and used to sign
+and upload the maven artifacts.
 
 ## Make the release ##
 
-Now release everything:
+Check if branch name and version are as expected:
 
 ```
-mvn release:clean release:prepare -DautoVersionSubmodules=true -Darguments="-DskipTests=true"  
+make version
 ```
 
-Travis will now deploy everything. Once travis is done go into [Nexus](https://oss.sonatype.org/) and inspect, 
-close and release the staging repository.
-
-# Manual deployment #
-
-It is preferable to use the automated deployment process over the manual process.
-
-The deployment process of `cucumber-jvm` is based on 
-[Deploying to OSSRH with Apache Maven](http://central.sonatype.org/pages/apache-maven.html#deploying-to-ossrh-with-apache-maven-introduction).
-This process is nearly identical for both snapshot deployments and releases. Whether a snapshot 
-deployment or release is executed is determined by the version number.
-
-To make a release you must have the `devs@cucumber.io` GPG private key imported in gpg2.
+Do the release:
 
 ```
-gpg --import devs-cucumber.io.key
-```
+make release
+``` 
 
-Additionally upload privileges to the Sonatype repositories are required. See the 
-[OSSRH Guide](http://central.sonatype.org/pages/ossrh-guide.html) for instructions. Then an 
-administrator will have to grant you access to the cucumber repository.
+## Last bits ##
 
-Finally both your OSSRH credentials and private key must be setup in your `~/.m2/settings.xml` - 
-for example:
+Update the cucumber-jvm version in the documentation project:
 
-```
-<settings>
-    <servers>
-        <server>
-            <id>ossrh</id>
-            <username>sonatype-user-name</username>
-            <password>sonatype-password</password>
-        </server>
-    </servers>
-    <profiles>
-        <profile>
-            <id>ossrh</id>
-            <activation>
-                <activeByDefault>true</activeByDefault>
-            </activation>
-            <properties>
-                <gpg.executable>gpg2</gpg.executable>
-                <gpg.useagent>true</gpg.useagent>
-            </properties>
-        </profile>
-        <profile>
-            <id>sign-with-cucumber-key</id>
-            <properties>
-                <gpg.keyname>dev-cucumber.io-key-id</gpg.keyname>
-            </properties>
-        </profile>
-    </profiles>
-</settings>
-```
+* https://github.com/cucumber/docs.cucumber.io
 
+The cucumber-jvm version for the docs is specified in the docs [versions.yaml](https://github.com/cucumber/docs.cucumber.io/blob/master/data/versions.yaml)
 
-# Deploy the release #
-
-```
-mvn release:perform -Psign-source-javadoc -DskipTests=true
-```
+All done! Hurray!
