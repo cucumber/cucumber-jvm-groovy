@@ -1,8 +1,7 @@
 ## Maven Dependency
 
 [![Maven Central](https://img.shields.io/maven-central/v/io.cucumber/cucumber-groovy.svg?label=Maven%20Central)](https://search.maven.org/search?q=g:%22io.cucumber%22%20AND%20a:%22cucumber-groovy%22)
-[![Build Status](https://travis-ci.org/cucumber/cucumber-jvm-groovy.svg
-?branch=main)](https://travis-ci.org/cucumber/cucumber-jvm-groovy)
+[![Build Status](https://travis-ci.org/cucumber/cucumber-jvm-groovy.svg?branch=main)](https://travis-ci.org/cucumber/cucumber-jvm-groovy)
 
 Cucumber Groovy is the Groovy implementation of [Cucumber](https://cucumber.io/).
 
