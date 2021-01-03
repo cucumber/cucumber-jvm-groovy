@@ -30,4 +30,8 @@ abstract class AbstractStepGlueDefinition implements Located {
         return ParameterInfoGroovy.fromTypes(body);
     }
 
+    List<ParameterInfo> getParameterInfosHooks() {
+        return ParameterInfoGroovy.fromTypesHooks(body);
+    }
+
 }

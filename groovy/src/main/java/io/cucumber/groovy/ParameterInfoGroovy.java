@@ -38,6 +38,15 @@ public class ParameterInfoGroovy implements ParameterInfo {
         return result;
     }
 
+    public static List<ParameterInfo> fromTypesHooks(Closure closure) {
+        List<ParameterInfo> result = new ArrayList<>();
+        Type[] parameterTypes = closure.getParameterTypes();
+        for (int i = 0; i < parameterTypes.length; i++) {
+            result.add(new ParameterInfoGroovy(parameterTypes[i], false));
+        }
+        return result;
+    }
+
     @Override
     public Type getType() {
         return this.type;

@@ -27,7 +27,7 @@ public class GroovyHookDefinition extends AbstractStepGlueDefinition implements 
     @Override
     public void execute(TestCaseState state) {
         Object[] args;
-        if (getParameterInfos().size() == 1) {
+        if (getParameterInfosHooks().size() == 1) {
             args = new Object[]{new io.cucumber.groovy.Scenario(state)};
         } else {
             args = new Object[0];
