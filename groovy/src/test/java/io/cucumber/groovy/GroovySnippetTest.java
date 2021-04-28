@@ -61,7 +61,7 @@ public class GroovySnippetTest {
     @Test
     public void generatesSnippetWithEscapedDollarSigns() {
         List<String> expected = Collections.singletonList("" +
-                "Given(/I have $5/) {  ->\n" +
+                "Given(/I have ${int}/) { Integer int1 ->\n" +
                 "    // Write code here that turns the phrase above into concrete actions\n" +
                 "    throw new io.cucumber.groovy.PendingException()\n" +
                 "}\n");
