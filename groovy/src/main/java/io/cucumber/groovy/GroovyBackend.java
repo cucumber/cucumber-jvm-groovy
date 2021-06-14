@@ -53,9 +53,9 @@ public class GroovyBackend implements Backend {
         return instanceThreadLocal.get();
     }
 
-    private static GroovyShell createShell() {
+    private GroovyShell createShell() {
         CompilerConfiguration compilerConfig = new CompilerConfiguration();
-        return new GroovyShell(Thread.currentThread().getContextClassLoader(), new Binding(), compilerConfig);
+        return new GroovyShell(this.getClass().getClassLoader(), new Binding(), compilerConfig);
     }
 
 
