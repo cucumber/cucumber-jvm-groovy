@@ -2,7 +2,7 @@
 
 All notable changes to this project will be documented in this file.
 
-The format is based on [Keep a Changelog](http://keepachangelog.com/) and this project adheres to [Semantic Versioning](http://semver.org/).
+The format is based on [Keep a Changelog](https://keepachangelog.com/) and this project adheres to [Semantic Versioning](http://semver.org/).
 
 See also the [CHANGELOG](https://github.com/cucumber/cucumber-jvm/blob/main/CHANGELOG.md) from Cucumber Core.
 

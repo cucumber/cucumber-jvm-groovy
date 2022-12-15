@@ -5,7 +5,7 @@
     <packaging>pom</packaging>
     <name>Cucumber-JVM: Groovy</name>
     <description>Cucumber for Groovy</description>
-    <url>http://cucumber.io/</url>
+    <url>https://cucumber.io/</url>
 
     <parent>
         <groupId>io.cucumber</groupId>
