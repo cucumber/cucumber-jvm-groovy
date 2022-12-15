@@ -1,0 +1,53 @@
+name: Test Java
+
+on:
+  pull_request:
+    branches:
+      - '**'
+  workflow_call:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    name: 'Build'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Cache local Maven repository
+        uses: actions/cache@v3
+        with:
+          path: ~/.m2/repository
+          key: build-${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+          restore-keys: |
+            build-${{ runner.os }}-maven-
+      - uses:
+          AdoptOpenJDK/install-jdk@v1
+        with:
+          version: '11'
+      - name: Install dependencies
+        run: mvn install -DskipTests=true -DskipITs=true-Dmaven.javadoc.skip=true --batch-mode -Dstyle.color=always --show-version
+      - name: Test
+        run: mvn verify -Dstyle.color=always
+
+  javadoc:
+    name: 'Javadoc'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Cache local Maven repository
+        uses: actions/cache@v3
+        with:
+          path: ~/.m2/repository
+          key: javadoc-${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+          restore-keys: |
+            javadoc-${{ runner.os }}-maven-
+      - uses:
+          AdoptOpenJDK/install-jdk@v1
+        with:
+          version: '11'
+      - name: Install dependencies
+        run: mvn install -DskipTests=true -DskipITs=true -Dmaven.javadoc.skip=true --batch-mode -Dstyle.color=always --show-version
+      - name: Javadoc
+        run: mvn javadoc:jar -Dstyle.color=always
