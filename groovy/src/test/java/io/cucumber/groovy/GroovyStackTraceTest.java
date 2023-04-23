@@ -2,34 +2,35 @@ package io.cucumber.groovy;
 
 import groovy.lang.Closure;
 import org.codehaus.groovy.runtime.MethodClosure;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.junit.jupiter.MockitoExtension;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.fail;
 
-@RunWith(MockitoJUnitRunner.class)
+@ExtendWith(MockitoExtension.class)
+@ExtendWith(MockitoExtension.class)
 public class GroovyStackTraceTest {
     GroovyStepDefinition groovyStepDefinition;
 
 
-    @Before
-    public void setUp() throws Throwable {
-        Closure body = new MethodClosure("the owner", "length");
+    @BeforeEach
+    public void setUp() {
+        Closure<?> body = new MethodClosure("the owner", "length");
         groovyStepDefinition = new GroovyStepDefinition("", body, null, new ExceptionThrowingBackend());
     }
 
     @Test
-    public void should_sanitize_stacktrace() throws Throwable {
+    public void should_sanitize_stacktrace() {
         try {
             groovyStepDefinition.execute(new Object[0]);
             fail("step definition didn't throw an exception");
         } catch (Throwable thrown) {
             for (StackTraceElement stackTraceElement : thrown.getStackTrace()) {
                 // if there are none of these, pretty good chance it's cleaned up the stack trace
-                assertFalse("Stack trace has internal groovy callsite elements", stackTraceElement.getClassName().startsWith("org.codehaus.groovy.runtime.callsite"));
+                assertFalse(stackTraceElement.getClassName().startsWith("org.codehaus.groovy.runtime.callsite"), "Stack trace has internal groovy callsite elements");
             }
         }
 

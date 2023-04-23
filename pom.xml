@@ -32,7 +32,6 @@
         <gherkin.version>26.1.0</gherkin.version>
         <groovy.version>4.0.11</groovy.version>
         <junit-jupiter.version>5.9.2</junit-jupiter.version>
-        <mockito.version>5.3.1</mockito.version>
         <project.Automatic-Module-Name>io.cucumber.groovy</project.Automatic-Module-Name>
     </properties>
 
@@ -46,40 +45,30 @@
     <dependencyManagement>
         <dependencies>
             <dependency>
+                <groupId>org.junit</groupId>
+                <artifactId>junit-bom</artifactId>
+                <version>${junit-jupiter.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>io.cucumber</groupId>
+                <artifactId>cucumber-bom</artifactId>
+                <version>${cucumber.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
                 <groupId>io.cucumber</groupId>
                 <artifactId>cucumber-groovy</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
-                <groupId>io.cucumber</groupId>
-                <artifactId>cucumber-core</artifactId>
-                <version>${cucumber.version}</version>
-            </dependency>
-            <dependency>
                 <groupId>org.apache.groovy</groupId>
-                <artifactId>groovy-all</artifactId>
+                <artifactId>groovy-bom</artifactId>
                 <version>${groovy.version}</version>
                 <type>pom</type>
-                <scope>provided</scope>
-            </dependency>
-
-            <dependency>
-                <groupId>io.cucumber</groupId>
-                <artifactId>cucumber-junit</artifactId>
-                <version>${cucumber.version}</version>
-                <scope>test</scope>
-            </dependency>
-            <dependency>
-                <groupId>org.junit.jupiter</groupId>
-                <artifactId>junit-jupiter</artifactId>
-                <version>${junit-jupiter.version}</version>
-                <scope>test</scope>
-            </dependency>
-            <dependency>
-                <groupId>org.mockito</groupId>
-                <artifactId>mockito-core</artifactId>
-                <version>${mockito.version}</version>
-                <scope>test</scope>
+                <scope>import</scope>
             </dependency>
         </dependencies>
     </dependencyManagement>

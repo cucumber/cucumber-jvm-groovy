@@ -1,24 +1,25 @@
 package io.cucumber.groovy;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class GroovyWorldTest {
     GroovyWorld world;
 
-    @Before
+    @BeforeEach
     public void setUp() {
         world = new GroovyWorld();
     }
 
-    @Test(expected = RuntimeException.class)
+    @Test
     public void should_not_register_pure_java_object() {
-        world.registerWorld("JAVA");
+        assertThrows(RuntimeException.class, () -> world.registerWorld("JAVA"));
     }
 
     @Test
@@ -40,19 +41,19 @@ public class GroovyWorldTest {
         assertEquals("no args", world.getProperty("methodArgs"));
     }
 
-    @Test(expected = RuntimeException.class)
+    @Test
     public void should_detect_double_property_definition() {
         world.registerWorld(new WorldWithPropertyAndMethod());
         world.registerWorld(new AnotherCustomWorld());
 
-        world.getProperty("aProperty");
+        assertThrows(RuntimeException.class, () -> world.getProperty("aProperty"));
     }
 
-    @Test(expected = RuntimeException.class)
+    @Test
     public void should_detect_double_method_definition() {
         world.registerWorld(new WorldWithPropertyAndMethod());
         world.registerWorld(new AnotherCustomWorld());
 
-        world.invokeMethod("aMethod", new Integer[]{1, 2});
+        assertThrows(RuntimeException.class, () -> world.invokeMethod("aMethod", new Integer[]{1, 2}));
     }
 }

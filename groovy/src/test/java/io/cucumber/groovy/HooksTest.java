@@ -3,10 +3,10 @@ package io.cucumber.groovy;
 
 import io.cucumber.core.exception.CucumberException;
 import org.codehaus.groovy.runtime.MethodClosure;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 
 public class HooksTest {
 
