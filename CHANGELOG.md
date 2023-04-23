@@ -12,6 +12,10 @@ See also the [CHANGELOG](https://github.com/cucumber/cucumber-jvm/blob/main/CHAN
 ### Added
 
 ### Changed
+* Upgrade to latest groovy version 4.0.11 and cucumber-jvm 7.11.2 
+* Upgrading to Surefire v3 so we can use JUnit 5.
+* Using Bills of Material to keep all the dependencies aligned (and remove all the explicit version numbers everywhere)
+* Replacing JUnit 4 with JUnit 5.
 
 ### Deprecated
 
