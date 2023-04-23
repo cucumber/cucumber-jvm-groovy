@@ -16,7 +16,7 @@ public class ${normalized_language} {
 
     public static void ${java.text.Normalizer.normalize(kw.replaceAll("[\\s',!\u2019]", ""), java.text.Normalizer.Form.NFC)}(Pattern[] regexps, Closure body) throws Throwable {
          Arrays.stream(regexps).forEach(regexp->
-               GroovyBackend.getInstance().addStepDefinition(regexp.toString(), body)
+               GroovyBackend.getInstance().addStepDefinition("/" + regexp.toString() + "/", body)
          );
     }
 
@@ -25,7 +25,7 @@ public class ${normalized_language} {
     }
 
     public static void ${java.text.Normalizer.normalize(kw.replaceAll("[\\s',!\u2019]", ""), java.text.Normalizer.Form.NFC)}(Pattern regexp, Closure body) throws Throwable {
-        GroovyBackend.getInstance().addStepDefinition(regexp.toString(), body);
+        GroovyBackend.getInstance().addStepDefinition("/" + regexp.toString() + "/", body);
     }
 <% } %>
 }
