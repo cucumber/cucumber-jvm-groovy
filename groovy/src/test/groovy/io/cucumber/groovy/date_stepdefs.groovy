@@ -6,7 +6,7 @@ import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule
 import java.lang.reflect.Type
 import java.time.LocalDate
 
-import static groovy.util.GroovyTestCase.assertEquals
+import static groovy.test.GroovyTestCase.assertEquals
 
 this.metaClass.mixin(Hooks)
 this.metaClass.mixin(EN)

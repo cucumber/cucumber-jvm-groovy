@@ -3,7 +3,7 @@ package io.cucumber.groovy
 import io.cucumber.groovy.EN
 import io.cucumber.datatable.DataTable
 
-import static groovy.util.GroovyTestCase.assertEquals
+import static groovy.test.GroovyTestCase.assertEquals
 
 this.metaClass.mixin(EN)
 this.metaClass.mixin(Hooks)
