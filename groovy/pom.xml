@@ -15,6 +15,7 @@
         <gmaven.runtime>1.8</gmaven.runtime>
         <jackson.version>2.14.2</jackson.version>
         <junit-jupiter.version>5.9.2</junit-jupiter.version>
+        <junit-platform.version>1.9.2</junit-platform.version>
     </properties>
 
     <dependencies>
@@ -49,6 +50,18 @@
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter</artifactId>
             <version>${junit-jupiter.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>io.cucumber</groupId>
+            <artifactId>cucumber-junit-platform-engine</artifactId>
+            <version>${cucumber.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.platform</groupId>
+            <artifactId>junit-platform-console</artifactId>
+            <version>${junit-platform.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -140,56 +153,26 @@
                         </configuration>
                     </execution>
                     <execution>
-                        <id>copy-full-jar</id>
-                        <phase>package</phase>
-                        <configuration>
-                            <target>
-                                <copy file="${project.build.directory}/${project.build.finalName}-shaded.jar" tofile="${basedir}/bin/cucumber-groovy-shaded.jar" />
-                            </target>
-                        </configuration>
-                        <goals>
-                            <goal>run</goal>
-                        </goals>
-                    </execution>
-                    <execution>
-                        <id>groovy-cli-test</id>
+                        <!--Work around. Surefire does not use JUnit's Test Engine discovery functionality -->
+                        <id>CLI-test</id>
                         <phase>integration-test</phase>
                         <goals>
                             <goal>run</goal>
                         </goals>
                         <configuration>
                             <target>
-                                <!--
-                                Also run the CLI test to ensure that stuff works via the CLI as well.
-                                This isn't exactly the same as running `groovy bin/cucumber-jvm.groovy`
-                                without cucumber-groovy-full.jar on the classpath, but that will work too.
-                                -->
-
-                                <echo message="Running groovy tests via the CLI..." />
-                                <java classname="groovy.ui.GroovyMain" fork="true" failonerror="true" newenvironment="true" maxmemory="512m" classpathref="maven.test.classpath">
-                                    <classpath>
-                                        <pathelement location="${maven.dependency.org.apache.groovy.groovy-ant.jar.path}" />
-                                        <pathelement location="${maven.dependency.junit.junit.jar.path}" />
-                                        <pathelement location="${basedir}/bin/cucumber-groovy-shaded.jar" />
-                                        <pathelement location="target/test-classes" />
-                                    </classpath>
-                                    <arg value="bin/cucumber-jvm.groovy" />
-                                    <arg value="--strict" />
-
-                                    <!--
-                                    target/test-classes/cucumber/runtime/groovy contains:
-
-                                    * compiled groovy stepdefs (compiled_stepdefs$_run_closure1.class etc)
-                                    * source groovy stepdefs (interpreted_stepdefs.groovy etc)
-                                    * feature filkes (a_feature.feature etc)
-
-                                    -->
-                                    <arg value="--glue" />
-                                    <arg value="classpath:io/cucumber/groovy" />
-
-                                    <arg value="classpath:io/cucumber/groovy" />
+                                <echo message="Running JUnit Platform CLI"/>
+                                <java classname="org.junit.platform.console.ConsoleLauncher"
+                                      fork="true"
+                                      failonerror="true"
+                                      newenvironment="true"
+                                      maxmemory="512m"
+                                      classpathref="maven.test.classpath">
+                                    <arg value="--include-engine"/>
+                                    <arg value="cucumber"/>
+                                    <arg value="--scan-classpath"/>
+                                    <arg value="${project.build.testOutputDirectory}"/>
                                 </java>
-
                             </target>
                         </configuration>
                     </execution>
