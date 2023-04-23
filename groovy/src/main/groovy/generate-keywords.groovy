@@ -8,7 +8,7 @@ def unsupported = ["EM"] // The generated files for Emoij do not compile.
 def dialectProvider = new GherkinDialectProvider()
 
 dialectProvider.getLanguages().each { language ->
-    def dialect = dialectProvider.getDialect(language, null)
+    def dialect = dialectProvider.getDialect(language).orElseThrow()
     def normalized_language = dialect.language.replaceAll("[\\s-]", "_").toUpperCase()
     if (!unsupported.contains(normalized_language)) {
         def binding = ["i18n":dialect, "normalized_language":normalized_language]
