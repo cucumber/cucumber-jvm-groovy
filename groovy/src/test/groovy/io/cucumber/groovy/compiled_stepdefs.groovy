@@ -19,9 +19,22 @@ Given(~'^I have (\\d+) apples in my belly') { int apples ->
 Given(~'^a big basket with cukes') { ->
 }
 
+@DataTableType
+Thing dataTableTypeThing(Map<String, String> tableEntry) {
+    Thing thing = new Thing()
+    thing.year = Integer.valueOf(tableEntry.get("year"))
+    thing.name = tableEntry.get("name")
+    thing
+}
+
 Given(~'^the following table:$') { DataTable table ->
     things = table.asList(Thing)
     assertEquals("Cucumber-JVM", things[1].name)
+}
+
+@ParameterType(name="list", value="(.+\\s*,\\s*.+){1,}")
+List parameterTypeList(String[] s) {
+    Arrays.asList(s[0].split(","))*.trim()
 }
 
 Given('this should be converted to a list:{list}') { List list ->
