@@ -149,9 +149,9 @@
 
                 <!-- Non-standard plugins -->
                 <plugin>
-                    <groupId>org.codehaus.gmaven</groupId>
-                    <artifactId>gmaven-plugin</artifactId>
-                    <version>1.5</version>
+                    <groupId>org.codehaus.gmavenplus</groupId>
+                    <artifactId>gmavenplus-plugin</artifactId>
+                    <version>2.1.0</version>
                 </plugin>
 
                 <!--  Code coverage reporting -->
