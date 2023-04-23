@@ -4,17 +4,12 @@
     <parent>
         <groupId>io.cucumber</groupId>
         <artifactId>cucumber-jvm-groovy</artifactId>
-        <version>6.10.5-SNAPSHOT</version>
+        <version>7.0.0-SNAPSHOT</version>
     </parent>
 
     <artifactId>groovy-examples</artifactId>
     <packaging>jar</packaging>
     <name>Cucumber Groovy Examples</name>
-
-    <properties>
-        <gmaven.runtime>1.8</gmaven.runtime>
-        <junit-jupiter.version>5.6.0</junit-jupiter.version>
-    </properties>
 
     <dependencies>
         <dependency>
@@ -23,19 +18,23 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>io.cucumber</groupId>
-            <artifactId>cucumber-junit</artifactId>
+            <groupId>org.junit.platform</groupId>
+            <artifactId>junit-platform-suite</artifactId>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter</artifactId>
-            <version>${junit-jupiter.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>org.codehaus.groovy</groupId>
-            <artifactId>groovy-all</artifactId>
+            <groupId>io.cucumber</groupId>
+            <artifactId>cucumber-junit-platform-engine</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.groovy</groupId>
+            <artifactId>groovy</artifactId>
             <scope>provided</scope>
         </dependency>
     </dependencies>
@@ -43,15 +42,15 @@
     <build>
         <plugins>
         <plugin>
-            <groupId>org.codehaus.gmaven</groupId>
-            <artifactId>gmaven-plugin</artifactId>
+            <groupId>org.codehaus.gmavenplus</groupId>
+            <artifactId>gmavenplus-plugin</artifactId>
             <executions>
                 <execution>
                     <goals>
                         <goal>generateStubs</goal>
                         <goal>compile</goal>
                         <goal>generateTestStubs</goal>
-                        <goal>testCompile</goal>
+                        <goal>compileTests</goal>
                     </goals>
                 </execution>
             </executions>

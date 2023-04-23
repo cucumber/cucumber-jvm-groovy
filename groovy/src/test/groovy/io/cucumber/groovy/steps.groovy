@@ -1,6 +1,5 @@
 package io.cucumber.groovy
 
-import io.cucumber.datatable.DataTable
 
 import static org.junit.jupiter.api.Assertions.assertEquals
 import static org.junit.jupiter.api.Assertions.assertTrue
@@ -10,11 +9,6 @@ this.metaClass.mixin(EN)
 final Author expectedAuthor = new Author("Annie M. G.", "Schmidt", "1911-03-20")
 final Person expectedPerson = new Person("Astrid", "Lindgren")
 final Person mononymousPerson = new Person("Plato", "")
-
-@DataTableType
-static Author singleAuthorTransformer(DataTable table) {
-    return authorEntryTransformer(table.asMaps().get(0))
-}
 
 @DataTableType
 static Author authorEntryTransformer(Map<String, String> entry) {

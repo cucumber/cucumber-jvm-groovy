@@ -4,18 +4,18 @@ package io.cucumber.groovy;
 import io.cucumber.core.backend.Container;
 import io.cucumber.core.backend.Lookup;
 import org.codehaus.groovy.runtime.MethodClosure;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.function.Supplier;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
-@RunWith(MockitoJUnitRunner.class)
+@ExtendWith(MockitoExtension.class)
 public class GroovyBackendTest {
     @Mock
     Lookup lookup;
@@ -29,8 +29,8 @@ public class GroovyBackendTest {
     @Mock
     Supplier<ClassLoader> classLoaderSupplier;
 
-    @Before
-    public void setUp() throws Exception {
+    @BeforeEach
+    public void setUp() {
         backend = new GroovyBackend(lookup, container, classLoaderSupplier);
     }
 

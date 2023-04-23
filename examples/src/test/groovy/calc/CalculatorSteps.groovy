@@ -51,11 +51,6 @@ Given(~/^I have entered (\d+) into .* calculator$/) { int number ->
     calc.push number
 }
 
-// Remember to still include "->" if there are no parameters.
-Given(~/\d+ into the/) {->
-    throw new RuntimeException("should never get here since we're running with --guess")
-}
-
 // This step calls a Calculator function specified in the step
 // and saves the result in the current world object.
 When(~/^I press (\w+)$/) { String opname ->

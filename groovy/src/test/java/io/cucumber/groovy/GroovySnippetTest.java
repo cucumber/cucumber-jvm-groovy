@@ -6,13 +6,13 @@ import io.cucumber.core.gherkin.Step;
 import io.cucumber.core.snippets.SnippetGenerator;
 import io.cucumber.core.snippets.SnippetType;
 import io.cucumber.cucumberexpressions.ParameterTypeRegistry;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class GroovySnippetTest {
 
@@ -28,7 +28,7 @@ public class GroovySnippetTest {
     }
 
     @Test
-    public void generatesCopyPasteReadyStepSnippetForNumberParameters() throws Exception {
+    public void generatesCopyPasteReadyStepSnippetForNumberParameters() {
         List<String> expected = Collections.singletonList("" +
                 "Given(/before {int} after/) { Integer int1 ->\n" +
                 "    // Write code here that turns the phrase above into concrete actions\n" +
