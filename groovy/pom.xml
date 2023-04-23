@@ -23,8 +23,9 @@
             <artifactId>cucumber-core</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.codehaus.groovy</groupId>
+            <groupId>org.apache.groovy</groupId>
             <artifactId>groovy-all</artifactId>
+            <type>pom</type>
             <scope>provided</scope>
         </dependency>
         <dependency>
@@ -167,7 +168,7 @@
                                 <echo message="Running groovy tests via the CLI..." />
                                 <java classname="groovy.ui.GroovyMain" fork="true" failonerror="true" newenvironment="true" maxmemory="512m" classpathref="maven.test.classpath">
                                     <classpath>
-                                        <pathelement location="${maven.dependency.org.codehaus.groovy.groovy-all.jar.path}" />
+                                        <pathelement location="${maven.dependency.org.apache.groovy.groovy-ant.jar.path}" />
                                         <pathelement location="${maven.dependency.junit.junit.jar.path}" />
                                         <pathelement location="${basedir}/bin/cucumber-groovy-shaded.jar" />
                                         <pathelement location="target/test-classes" />
