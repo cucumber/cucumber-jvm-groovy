@@ -32,8 +32,7 @@
         <gherkin.version>26.1.0</gherkin.version>
         <groovy.version>4.0.11</groovy.version>
         <junit-jupiter.version>5.9.2</junit-jupiter.version>
-        <junit-platform.version>1.9.2</junit-platform.version>
-        <mockito.version>5.2.0</mockito.version>
+        <mockito.version>5.3.1</mockito.version>
         <project.Automatic-Module-Name>io.cucumber.groovy</project.Automatic-Module-Name>
     </properties>
 
@@ -132,7 +131,7 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-surefire-plugin</artifactId>
-                    <version>2.22.2</version>
+                    <version>3.0.0</version>
                     <configuration>
                         <argLine>-Duser.language=en</argLine>
                         <argLine>-Xmx1024m</argLine>
