@@ -1,7 +1,6 @@
 package io.cucumber.groovy;
 
 import groovy.lang.Closure;
-import io.cucumber.groovy.*;
 import java.util.Arrays;
 import java.util.regex.Pattern;
 

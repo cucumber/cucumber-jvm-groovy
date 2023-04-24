@@ -5,7 +5,11 @@ import groovy.lang.Binding;
 import groovy.lang.Closure;
 import groovy.lang.GroovyShell;
 import groovy.lang.Script;
-import io.cucumber.core.backend.*;
+import io.cucumber.core.backend.Backend;
+import io.cucumber.core.backend.Container;
+import io.cucumber.core.backend.Glue;
+import io.cucumber.core.backend.Lookup;
+import io.cucumber.core.backend.Snippet;
 import io.cucumber.core.exception.CucumberException;
 import io.cucumber.core.resource.ClasspathScanner;
 import io.cucumber.core.resource.ClasspathSupport;
@@ -14,7 +18,11 @@ import org.codehaus.groovy.control.CompilerConfiguration;
 
 import java.lang.annotation.Annotation;
 import java.net.URI;
-import java.util.*;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Set;
 import java.util.function.Supplier;
 
 import static io.cucumber.core.resource.ClasspathSupport.CLASSPATH_SCHEME;

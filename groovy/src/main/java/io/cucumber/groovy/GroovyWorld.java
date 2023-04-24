@@ -1,6 +1,10 @@
 package io.cucumber.groovy;
 
-import groovy.lang.*;
+import groovy.lang.GroovyObject;
+import groovy.lang.GroovyObjectSupport;
+import groovy.lang.MissingMethodException;
+import groovy.lang.MissingPropertyException;
+import groovy.lang.Tuple;
 import org.codehaus.groovy.runtime.MetaClassHelper;
 
 import java.util.LinkedList;
