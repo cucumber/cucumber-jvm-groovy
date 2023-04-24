@@ -9,8 +9,8 @@
 
     <parent>
         <groupId>io.cucumber</groupId>
-        <artifactId>cucumber-parent</artifactId>
-        <version>4.1.1</version>
+        <artifactId>cucumber-jvm</artifactId>
+        <version>7.11.2</version>
     </parent>
 
     <developers>
