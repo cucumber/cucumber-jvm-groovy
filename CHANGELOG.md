@@ -16,6 +16,7 @@ See also the [CHANGELOG](https://github.com/cucumber/cucumber-jvm/blob/main/CHAN
 * Upgrading to Surefire v3 so we can use JUnit 5.
 * Using Bills of Material to keep all the dependencies aligned (and remove all the explicit version numbers everywhere)
 * Replacing JUnit 4 with JUnit 5.
+* Update paranet-pom to io.cucumber:cucumber-jvm:7.11.2
 
 ### Deprecated
 
