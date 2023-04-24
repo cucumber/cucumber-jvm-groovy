@@ -46,7 +46,7 @@ import java.lang.annotation.Target;
  * </pre>
  */
 @Retention(RetentionPolicy.RUNTIME)
-@Target({ElementType.PARAMETER})
+@Target({ ElementType.PARAMETER })
 @API(status = API.Status.STABLE)
 public @interface Transpose {
 

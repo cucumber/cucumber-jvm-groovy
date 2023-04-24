@@ -14,16 +14,18 @@ class GroovyParameterTypeDefinition extends AbstractParamGlueDefinition implemen
 
     private final ParameterType<Object> parameterType;
 
-    GroovyParameterTypeDefinition(String name, String pattern, Method method, boolean useForSnippets, boolean preferForRegexpMatch, Lookup lookup) {
+    GroovyParameterTypeDefinition(
+            String name, String pattern, Method method, boolean useForSnippets, boolean preferForRegexpMatch,
+            Lookup lookup
+    ) {
         super(requireValidMethod(method), lookup);
         this.parameterType = new ParameterType<>(
-                name.isEmpty() ? method.getName() : name,
-                singletonList(pattern),
-                this.method.getGenericReturnType(),
-                this::execute,
-                useForSnippets,
-                preferForRegexpMatch
-        );
+            name.isEmpty() ? method.getName() : name,
+            singletonList(pattern),
+            this.method.getGenericReturnType(),
+            this::execute,
+            useForSnippets,
+            preferForRegexpMatch);
     }
 
     private static Method requireValidMethod(Method method) {
@@ -72,7 +74,7 @@ class GroovyParameterTypeDefinition extends AbstractParamGlueDefinition implemen
         Object[] args;
 
         if (String[].class.equals(method.getParameterTypes()[0])) {
-            args = new Object[][]{captureGroups};
+            args = new Object[][] { captureGroups };
         } else {
             args = captureGroups;
         }

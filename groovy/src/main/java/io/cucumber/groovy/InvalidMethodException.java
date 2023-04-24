@@ -12,8 +12,8 @@ final class InvalidMethodException extends CucumberBackendException {
 
     static InvalidMethodException createInvalidMethodException(Method method, Class<?> glueCodeClass) {
         return new InvalidMethodException(
-                "You're not allowed to extend classes that define Step Definitions or hooks. "
-                        + glueCodeClass + " extends " + method.getDeclaringClass());
+            "You're not allowed to extend classes that define Step Definitions or hooks. "
+                    + glueCodeClass + " extends " + method.getDeclaringClass());
     }
 
 }

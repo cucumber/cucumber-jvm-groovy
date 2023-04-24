@@ -13,7 +13,8 @@ import java.util.Map;
 
 import static io.cucumber.groovy.InvalidMethodSignatureException.builder;
 
-class GroovyDataTableTypeDefinition extends AbstractDatatableElementTransformerDefinition implements DataTableTypeDefinition {
+class GroovyDataTableTypeDefinition extends AbstractDatatableElementTransformerDefinition
+        implements DataTableTypeDefinition {
 
     private final DataTableType dataTableType;
 
@@ -71,30 +72,26 @@ class GroovyDataTableTypeDefinition extends AbstractDatatableElementTransformerD
 
         if (DataTable.class.equals(parameterType)) {
             return new DataTableType(
-                    returnType,
-                    (DataTable table) -> execute(replaceEmptyPatternsWithEmptyString(table))
-            );
+                returnType,
+                (DataTable table) -> execute(replaceEmptyPatternsWithEmptyString(table)));
         }
 
         if (List.class.equals(parameterType)) {
             return new DataTableType(
-                    returnType,
-                    (List<String> row) -> execute(replaceEmptyPatternsWithEmptyString(row))
-            );
+                returnType,
+                (List<String> row) -> execute(replaceEmptyPatternsWithEmptyString(row)));
         }
 
         if (Map.class.equals(parameterType)) {
             return new DataTableType(
-                    returnType,
-                    (Map<String, String> entry) -> execute(replaceEmptyPatternsWithEmptyString(entry))
-            );
+                returnType,
+                (Map<String, String> entry) -> execute(replaceEmptyPatternsWithEmptyString(entry)));
         }
 
         if (String.class.equals(parameterType)) {
             return new DataTableType(
-                    returnType,
-                    (String cell) -> execute(replaceEmptyPatternsWithEmptyString(cell))
-            );
+                returnType,
+                (String cell) -> execute(replaceEmptyPatternsWithEmptyString(cell)));
         }
 
         throw createInvalidSignatureException(method);

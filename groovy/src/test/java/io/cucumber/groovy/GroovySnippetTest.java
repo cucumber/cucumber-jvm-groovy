@@ -1,6 +1,5 @@
 package io.cucumber.groovy;
 
-
 import io.cucumber.core.gherkin.Feature;
 import io.cucumber.core.gherkin.Step;
 import io.cucumber.core.snippets.SnippetGenerator;
@@ -15,7 +14,6 @@ import java.util.Locale;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class GroovySnippetTest {
-
 
     @Test
     public void generatesPlainSnippet() {
@@ -47,7 +45,6 @@ public class GroovySnippetTest {
         assertEquals(expected, snippetFor("I have 4 cukes in: my \"big\" red-belly!"));
     }
 
-
     @Test
     public void generatesCopyPasteReadySnippetWhenStepHasIntegersInsideStringParameter() {
         List<String> expected = Collections.singletonList("" +
@@ -55,7 +52,8 @@ public class GroovySnippetTest {
                 "    // Write code here that turns the phrase above into concrete actions\n" +
                 "    throw new io.cucumber.groovy.PendingException()\n" +
                 "}\n");
-        assertEquals(expected, snippetFor("the DI system receives a message saying \"{ dataIngestion: { feeds: [ feed: { merchantId: 666, feedId: 1, feedFileLocation: feed.csv } ] }\""));
+        assertEquals(expected, snippetFor(
+            "the DI system receives a message saying \"{ dataIngestion: { feeds: [ feed: { merchantId: 666, feedId: 1, feedFileLocation: feed.csv } ] }\""));
     }
 
     @Test
@@ -121,17 +119,20 @@ public class GroovySnippetTest {
 
     private List<String> snippetFor(String name) {
         Step step = createStep(name);
-        return new SnippetGenerator(new GroovySnippet(), new ParameterTypeRegistry(Locale.ENGLISH)).getSnippet(step, SnippetType.UNDERSCORE);
+        return new SnippetGenerator(new GroovySnippet(), new ParameterTypeRegistry(Locale.ENGLISH)).getSnippet(step,
+            SnippetType.UNDERSCORE);
     }
 
     private List<String> snippetForDocString(String name, String docString) {
         Step step = createStepWithDocString(name, docString);
-        return new SnippetGenerator(new GroovySnippet(), new ParameterTypeRegistry(Locale.ENGLISH)).getSnippet(step, SnippetType.UNDERSCORE);
+        return new SnippetGenerator(new GroovySnippet(), new ParameterTypeRegistry(Locale.ENGLISH)).getSnippet(step,
+            SnippetType.UNDERSCORE);
     }
 
     private List<String> snippetForDataTable(String name) {
         Step step = createStepWithDataTable(name);
-        return new SnippetGenerator(new GroovySnippet(), new ParameterTypeRegistry(Locale.ENGLISH)).getSnippet(step, SnippetType.UNDERSCORE);
+        return new SnippetGenerator(new GroovySnippet(), new ParameterTypeRegistry(Locale.ENGLISH)).getSnippet(step,
+            SnippetType.UNDERSCORE);
     }
 
     private Step createStepWithDataTable(String stepText) {
@@ -168,6 +169,5 @@ public class GroovySnippetTest {
         Feature feature = TestFeatureParser.parse(source);
         return feature.getPickles().get(0).getSteps().get(0);
     }
-
 
 }

@@ -1,6 +1,5 @@
 package io.cucumber.groovy;
 
-
 import groovy.lang.Closure;
 import io.cucumber.core.exception.CucumberException;
 import org.apiguardian.api.API;
@@ -9,18 +8,19 @@ import org.apiguardian.api.API;
 public class Hooks {
     private static final int DEFAULT_ORDER = 1000;
 
-
     public static void World(Closure body) {
         GroovyBackend.getInstance().registerWorld(body);
     }
 
     /**
-     * Registers a before hook, which is executed before specific, or all, scenarios.
+     * Registers a before hook, which is executed before specific, or all,
+     * scenarios.
      * <p>
-     * Following values are expected as hook parameters.
-     * - Integer order: the order in which this hook should run. Lower numbers are run first. The default is 10000.
-     * - String(s) tags: one or more tag expression to filter the certain scenarios. The default is empty.
-     * - Closure body: hook body which is executed before scenario. Not null.
+     * Following values are expected as hook parameters. - Integer order: the
+     * order in which this hook should run. Lower numbers are run first. The
+     * default is 10000. - String(s) tags: one or more tag expression to filter
+     * the certain scenarios. The default is empty. - Closure body: hook body
+     * which is executed before scenario. Not null.
      *
      * @param args the hook parameters
      */
@@ -29,12 +29,14 @@ public class Hooks {
     }
 
     /**
-     * Registers an after hook, which is executed after specific, or all, scenarios.
+     * Registers an after hook, which is executed after specific, or all,
+     * scenarios.
      * <p>
-     * Following values are expected as hook parameters.
-     * - Integer order: the order in which this hook should run. Higher numbers are run first. The default is 10000.
-     * - String(s) tags: one or more tag expression to filter the certain scenarios. The default is empty.
-     * - Closure body: hook body which is executed after scenario. Not null.
+     * Following values are expected as hook parameters. - Integer order: the
+     * order in which this hook should run. Higher numbers are run first. The
+     * default is 10000. - String(s) tags: one or more tag expression to filter
+     * the certain scenarios. The default is empty. - Closure body: hook body
+     * which is executed after scenario. Not null.
      *
      * @param args the hook parameters
      */

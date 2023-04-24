@@ -1,6 +1,5 @@
 package io.cucumber.groovy;
 
-
 import io.cucumber.core.backend.Container;
 import io.cucumber.core.backend.Lookup;
 import org.codehaus.groovy.runtime.MethodClosure;

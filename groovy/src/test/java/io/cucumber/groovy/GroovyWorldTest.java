@@ -54,6 +54,6 @@ public class GroovyWorldTest {
         world.registerWorld(new WorldWithPropertyAndMethod());
         world.registerWorld(new AnotherCustomWorld());
 
-        assertThrows(RuntimeException.class, () -> world.invokeMethod("aMethod", new Integer[]{1, 2}));
+        assertThrows(RuntimeException.class, () -> world.invokeMethod("aMethod", new Integer[] { 1, 2 }));
     }
 }

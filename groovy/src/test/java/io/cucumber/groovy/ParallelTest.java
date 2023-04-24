@@ -1,6 +1,5 @@
 package io.cucumber.groovy;
 
-
 import groovy.lang.Closure;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -8,7 +7,6 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.function.Supplier;
-
 
 @ExtendWith(MockitoExtension.class)
 public class ParallelTest {
@@ -24,7 +22,8 @@ public class ParallelTest {
             try {
                 GroovyBackend.getInstance().registerWorld(closure);
             } catch (NullPointerException e) {
-                // This is what we want as there should be no GroovyBackend on this thread
+                // This is what we want as there should be no GroovyBackend on
+                // this thread
             }
         });
         runAndWait(interactWithBackendThread);

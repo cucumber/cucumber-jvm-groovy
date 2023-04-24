@@ -12,8 +12,8 @@ import java.util.Map;
 
 import static io.cucumber.groovy.InvalidMethodSignatureException.builder;
 
-
-class GroovyDefaultDataTableEntryTransformerDefinition extends AbstractDatatableElementTransformerDefinition implements DefaultDataTableEntryTransformerDefinition {
+class GroovyDefaultDataTableEntryTransformerDefinition extends AbstractDatatableElementTransformerDefinition
+        implements DefaultDataTableEntryTransformerDefinition {
 
     private final TableEntryByTypeTransformer transformer;
     private final boolean headersToProperties;
@@ -22,11 +22,13 @@ class GroovyDefaultDataTableEntryTransformerDefinition extends AbstractDatatable
         this(method, lookup, false, new String[0]);
     }
 
-    GroovyDefaultDataTableEntryTransformerDefinition(Method method, Lookup lookup, boolean headersToProperties, String[] emptyPatterns) {
+    GroovyDefaultDataTableEntryTransformerDefinition(
+            Method method, Lookup lookup, boolean headersToProperties, String[] emptyPatterns
+    ) {
         super(requireValidMethod(method), lookup, emptyPatterns);
         this.headersToProperties = headersToProperties;
-        this.transformer = (entryValue, toValueType, cellTransformer) ->
-                execute(replaceEmptyPatternsWithEmptyString(entryValue), toValueType, cellTransformer);
+        this.transformer = (entryValue, toValueType, cellTransformer) -> execute(
+            replaceEmptyPatternsWithEmptyString(entryValue), toValueType, cellTransformer);
     }
 
     private static Method requireValidMethod(Method method) {
@@ -66,7 +68,8 @@ class GroovyDefaultDataTableEntryTransformerDefinition extends AbstractDatatable
         }
 
         if (parameterTypes.length == 3) {
-            if (!(Object.class.equals(parameterTypes[2]) || TableCellByTypeTransformer.class.equals(parameterTypes[2]))) {
+            if (!(Object.class.equals(parameterTypes[2])
+                    || TableCellByTypeTransformer.class.equals(parameterTypes[2]))) {
                 throw createInvalidSignatureException(method);
             }
         }
@@ -92,13 +95,15 @@ class GroovyDefaultDataTableEntryTransformerDefinition extends AbstractDatatable
         return headersToProperties;
     }
 
-    private Object execute(Map<String, String> fromValue, Type toValueType, TableCellByTypeTransformer cellTransformer) {
+    private Object execute(
+            Map<String, String> fromValue, Type toValueType, TableCellByTypeTransformer cellTransformer
+    ) {
         Object[] args;
 
         if (method.getParameterTypes().length == 3) {
-            args = new Object[]{fromValue, toValueType, cellTransformer};
+            args = new Object[] { fromValue, toValueType, cellTransformer };
         } else {
-            args = new Object[]{fromValue, toValueType};
+            args = new Object[] { fromValue, toValueType };
         }
         return Invoker.invoke(this, lookup.getInstance(method.getDeclaringClass()), method, args);
     }

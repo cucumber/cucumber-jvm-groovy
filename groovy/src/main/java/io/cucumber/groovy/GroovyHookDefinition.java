@@ -1,6 +1,5 @@
 package io.cucumber.groovy;
 
-
 import groovy.lang.Closure;
 import io.cucumber.core.backend.HookDefinition;
 import io.cucumber.core.backend.TestCaseState;
@@ -17,7 +16,8 @@ public class GroovyHookDefinition extends AbstractStepGlueDefinition implements 
             int order,
             Closure body,
             StackTraceElement location,
-            GroovyBackend backend) {
+            GroovyBackend backend
+    ) {
         super(body, location);
         this.tagExpression = requireNonNull(tagExpression, "tag-expression may not be null");
         this.order = order;
@@ -28,7 +28,7 @@ public class GroovyHookDefinition extends AbstractStepGlueDefinition implements 
     public void execute(TestCaseState state) {
         Object[] args;
         if (getParameterInfosHooks().size() == 1) {
-            args = new Object[]{new io.cucumber.groovy.Scenario(state)};
+            args = new Object[] { new io.cucumber.groovy.Scenario(state) };
         } else {
             args = new Object[0];
         }
@@ -47,4 +47,3 @@ public class GroovyHookDefinition extends AbstractStepGlueDefinition implements 
     }
 
 }
-

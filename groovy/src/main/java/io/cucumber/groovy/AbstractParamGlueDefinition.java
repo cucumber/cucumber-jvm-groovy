@@ -20,7 +20,8 @@ abstract class AbstractParamGlueDefinition implements Located {
 
     @Override
     public boolean isDefinedAt(StackTraceElement e) {
-        return e.getClassName().equals(method.getDeclaringClass().getName()) && e.getMethodName().equals(method.getName());
+        return e.getClassName().equals(method.getDeclaringClass().getName())
+                && e.getMethodName().equals(method.getName());
     }
 
     @Override

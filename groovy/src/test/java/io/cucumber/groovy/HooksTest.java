@@ -1,6 +1,5 @@
 package io.cucumber.groovy;
 
-
 import io.cucumber.core.exception.CucumberException;
 import org.codehaus.groovy.runtime.MethodClosure;
 import org.junit.jupiter.api.Test;
@@ -17,8 +16,8 @@ public class HooksTest {
             fail("CucumberException was not thrown");
         } catch (CucumberException e) {
             assertEquals("An argument of the type java.lang.Double found, Before only allows the argument types " +
-                            "String - Tag, Integer - order, and Closure",
-                    e.getMessage());
+                    "String - Tag, Integer - order, and Closure",
+                e.getMessage());
         }
     }
 
@@ -28,7 +27,9 @@ public class HooksTest {
             Hooks.Before(1L, 2L);
             fail("CucumberException was not thrown");
         } catch (CucumberException e) {
-            assertEquals("An argument of the type java.lang.Long found, Before only allows the argument types String - Tag, Integer - order, and Closure", e.getMessage());
+            assertEquals(
+                "An argument of the type java.lang.Long found, Before only allows the argument types String - Tag, Integer - order, and Closure",
+                e.getMessage());
         }
     }
 

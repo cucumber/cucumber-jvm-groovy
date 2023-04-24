@@ -25,7 +25,8 @@ public class GroovyScriptIdentifier {
 
     public static URI parse(URI groovyIdentifier) {
         if (!isGroovyScript(groovyIdentifier)) {
-            throw new IllegalArgumentException("Groovy identifier does not reference a single groovy file: " + groovyIdentifier);
+            throw new IllegalArgumentException(
+                "Groovy identifier does not reference a single groovy file: " + groovyIdentifier);
         } else {
             return groovyIdentifier;
         }

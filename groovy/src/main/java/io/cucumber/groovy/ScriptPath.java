@@ -24,7 +24,8 @@ public class ScriptPath {
         } else if (isWindowsOS() && pathContainsWindowsDrivePattern(scriptIdentifier)) {
             return parseAssumeFileScheme(scriptIdentifier);
         } else {
-            return probablyURI(scriptIdentifier) ? parseProbableURI(scriptIdentifier) : parseAssumeFileScheme(scriptIdentifier);
+            return probablyURI(scriptIdentifier) ? parseProbableURI(scriptIdentifier)
+                    : parseAssumeFileScheme(scriptIdentifier);
         }
     }
 

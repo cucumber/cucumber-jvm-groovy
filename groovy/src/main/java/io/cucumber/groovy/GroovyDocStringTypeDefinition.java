@@ -13,14 +13,12 @@ class GroovyDocStringTypeDefinition extends AbstractParamGlueDefinition implemen
 
     private final io.cucumber.docstring.DocStringType docStringType;
 
-
     GroovyDocStringTypeDefinition(String contentType, Method method, Lookup lookup) {
         super(requireValidMethod(method), lookup);
         this.docStringType = new DocStringType(
-                this.method.getReturnType(),
-                contentType.isEmpty() ? method.getName() : contentType,
-                this::execute
-        );
+            this.method.getReturnType(),
+            contentType.isEmpty() ? method.getName() : contentType,
+            this::execute);
     }
 
     private static Method requireValidMethod(Method method) {
@@ -50,7 +48,6 @@ class GroovyDocStringTypeDefinition extends AbstractParamGlueDefinition implemen
                 .addNote("Note: JsonNode is an example of the class you want to convert content to")
                 .build();
     }
-
 
     private Object execute(String content) {
         return Invoker.invoke(this, lookup.getInstance(method.getDeclaringClass()), method, content);

@@ -9,7 +9,8 @@ import java.lang.reflect.Type;
 
 import static io.cucumber.groovy.InvalidMethodSignatureException.builder;
 
-class GroovyDefaultParameterTransformerDefinition extends AbstractParamGlueDefinition implements DefaultParameterTransformerDefinition {
+class GroovyDefaultParameterTransformerDefinition extends AbstractParamGlueDefinition
+        implements DefaultParameterTransformerDefinition {
 
     private final Lookup lookup;
     private final ParameterByTypeTransformer transformer;
@@ -49,7 +50,6 @@ class GroovyDefaultParameterTransformerDefinition extends AbstractParamGlueDefin
                 .addSignature("Object defaultDataTableEntry(Object fromValue, Type toValueType)")
                 .build();
     }
-
 
     @Override
     public ParameterByTypeTransformer parameterByTypeTransformer() {

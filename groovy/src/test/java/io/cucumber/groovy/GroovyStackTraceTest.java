@@ -15,7 +15,6 @@ import static org.junit.jupiter.api.Assertions.fail;
 public class GroovyStackTraceTest {
     GroovyStepDefinition groovyStepDefinition;
 
-
     @BeforeEach
     public void setUp() {
         Closure<?> body = new MethodClosure("the owner", "length");
@@ -29,8 +28,10 @@ public class GroovyStackTraceTest {
             fail("step definition didn't throw an exception");
         } catch (Throwable thrown) {
             for (StackTraceElement stackTraceElement : thrown.getStackTrace()) {
-                // if there are none of these, pretty good chance it's cleaned up the stack trace
-                assertFalse(stackTraceElement.getClassName().startsWith("org.codehaus.groovy.runtime.callsite"), "Stack trace has internal groovy callsite elements");
+                // if there are none of these, pretty good chance it's cleaned
+                // up the stack trace
+                assertFalse(stackTraceElement.getClassName().startsWith("org.codehaus.groovy.runtime.callsite"),
+                    "Stack trace has internal groovy callsite elements");
             }
         }
 
@@ -38,11 +39,9 @@ public class GroovyStackTraceTest {
 
     private static class ExceptionThrowingBackend extends GroovyBackend {
 
-
         public ExceptionThrowingBackend() {
             super(null, null, null);
         }
-
 
     }
 }

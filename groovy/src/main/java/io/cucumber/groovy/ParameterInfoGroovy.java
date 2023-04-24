@@ -21,11 +21,13 @@ public class ParameterInfoGroovy implements ParameterInfo {
 
     public static List<ParameterInfo> fromTypes(Closure closure) {
         List<ParameterInfo> result = new ArrayList<>();
-        Type[] genericParameterTypes = Arrays.stream(closure.getClass().getMethods()).filter(it -> it.getName().equals("call")).findFirst().get().getGenericParameterTypes();
+        Type[] genericParameterTypes = Arrays.stream(closure.getClass().getMethods())
+                .filter(it -> it.getName().equals("call")).findFirst().get().getGenericParameterTypes();
         if (closure.getParameterTypes().length < genericParameterTypes.length) {
             genericParameterTypes = closure.getParameterTypes();
         }
-        Annotation[][] annotations = Arrays.stream(closure.getClass().getMethods()).filter(it -> it.getName().equals("call")).findFirst().get().getParameterAnnotations();
+        Annotation[][] annotations = Arrays.stream(closure.getClass().getMethods())
+                .filter(it -> it.getName().equals("call")).findFirst().get().getParameterAnnotations();
         for (int i = 0; i < genericParameterTypes.length; i++) {
             boolean transposed = false;
             for (Annotation annotation : annotations[i]) {
@@ -67,4 +69,3 @@ public class ParameterInfoGroovy implements ParameterInfo {
     }
 
 }
-

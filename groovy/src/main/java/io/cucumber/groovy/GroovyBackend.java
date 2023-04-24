@@ -1,6 +1,5 @@
 package io.cucumber.groovy;
 
-
 import groovy.lang.Binding;
 import groovy.lang.Closure;
 import groovy.lang.GroovyShell;
@@ -30,7 +29,6 @@ import static io.cucumber.groovy.GroovyScriptIdentifier.currentLocation;
 import static io.cucumber.groovy.GroovyScriptIdentifier.parse;
 import static io.cucumber.groovy.MethodScanner.scan;
 
-
 public class GroovyBackend implements Backend {
     private static ThreadLocal<GroovyBackend> instanceThreadLocal = new ThreadLocal<>();
     private final Set<Class> scripts = new HashSet<>();
@@ -48,14 +46,12 @@ public class GroovyBackend implements Backend {
         this.container = container;
         this.shell = createShell();
         this.resourceLoader = new ResourceScanner<>(
-                classLoaderSupplier,
-                GroovyScriptIdentifier::isGroovyScript,
-                resource -> parse(resource, shell)
-        );
+            classLoaderSupplier,
+            GroovyScriptIdentifier::isGroovyScript,
+            resource -> parse(resource, shell));
         this.classFinder = new ClasspathScanner(classLoaderSupplier);
         instanceThreadLocal.set(this);
     }
-
 
     static GroovyBackend getInstance() {
         return instanceThreadLocal.get();
@@ -66,16 +62,16 @@ public class GroovyBackend implements Backend {
         return new GroovyShell(this.getClass().getClassLoader(), new Binding(), compilerConfig);
     }
 
-
     @Override
     public void loadGlue(Glue glue, List<URI> gluePaths) {
         this.glue = glue;
         final Binding context = shell.getContext();
 
-        //Load sources
-        gluePaths.stream().map(resourceLoader::scanForResourcesUri).flatMap(Collection::stream).forEach(script -> runIfScript(context, script));
+        // Load sources
+        gluePaths.stream().map(resourceLoader::scanForResourcesUri).flatMap(Collection::stream)
+                .forEach(script -> runIfScript(context, script));
 
-        //Load compiled scripts
+        // Load compiled scripts
         gluePaths.stream()
                 .filter(gluePath -> CLASSPATH_SCHEME.equals(gluePath.getScheme()))
                 .map(ClasspathSupport::packageName)
@@ -101,21 +97,25 @@ public class GroovyBackend implements Backend {
                 String name = parameterType.name();
                 boolean useForSnippets = parameterType.useForSnippets();
                 boolean preferForRegexMatch = parameterType.preferForRegexMatch();
-                glue.addParameterType(new GroovyParameterTypeDefinition(name, pattern, method, useForSnippets, preferForRegexMatch, lookup));
+                glue.addParameterType(new GroovyParameterTypeDefinition(name, pattern, method, useForSnippets,
+                    preferForRegexMatch, lookup));
             } else if (annotationType.equals(DataTableType.class)) {
                 DataTableType dataTableType = (DataTableType) annotation;
-                glue.addDataTableType(new GroovyDataTableTypeDefinition(method, lookup, dataTableType.replaceWithEmptyString()));
+                glue.addDataTableType(
+                    new GroovyDataTableTypeDefinition(method, lookup, dataTableType.replaceWithEmptyString()));
             } else if (annotationType.equals(DefaultParameterTransformer.class)) {
                 glue.addDefaultParameterTransformer(new GroovyDefaultParameterTransformerDefinition(method, lookup));
             } else if (annotationType.equals(DefaultDataTableEntryTransformer.class)) {
                 DefaultDataTableEntryTransformer transformer = (DefaultDataTableEntryTransformer) annotation;
                 boolean headersToProperties = transformer.headersToProperties();
                 String[] replaceWithEmptyString = transformer.replaceWithEmptyString();
-                glue.addDefaultDataTableEntryTransformer(new GroovyDefaultDataTableEntryTransformerDefinition(method, lookup, headersToProperties, replaceWithEmptyString));
+                glue.addDefaultDataTableEntryTransformer(new GroovyDefaultDataTableEntryTransformerDefinition(method,
+                    lookup, headersToProperties, replaceWithEmptyString));
             } else if (annotationType.equals(DefaultDataTableCellTransformer.class)) {
                 DefaultDataTableCellTransformer cellTransformer = (DefaultDataTableCellTransformer) annotation;
                 String[] emptyPatterns = cellTransformer.replaceWithEmptyString();
-                glue.addDefaultDataTableCellTransformer(new GroovyDefaultDataTableCellTransformerDefinition(method, lookup, emptyPatterns));
+                glue.addDefaultDataTableCellTransformer(
+                    new GroovyDefaultDataTableCellTransformerDefinition(method, lookup, emptyPatterns));
             } else if (annotationType.equals(DocStringType.class)) {
                 DocStringType docStringType = (DocStringType) annotation;
                 String contentType = docStringType.contentType();

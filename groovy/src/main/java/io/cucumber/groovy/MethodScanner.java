@@ -28,18 +28,21 @@ final class MethodScanner {
 
     private static boolean isInstantiable(Class<?> clazz) {
         boolean isNonStaticInnerClass = !Modifier.isStatic(clazz.getModifiers()) && clazz.getEnclosingClass() != null;
-        return Modifier.isPublic(clazz.getModifiers()) && !Modifier.isAbstract(clazz.getModifiers()) && !isNonStaticInnerClass;
+        return Modifier.isPublic(clazz.getModifiers()) && !Modifier.isAbstract(clazz.getModifiers())
+                && !isNonStaticInnerClass;
     }
 
     private static void scan(BiConsumer<Method, Annotation> consumer, Class<?> aClass, Method method) {
-        //prevent unnecessary checking of Object methods
+        // prevent unnecessary checking of Object methods
         if (Object.class.equals(method.getDeclaringClass())) {
             return;
         }
         scan(consumer, aClass, method, method.getAnnotations());
     }
 
-    private static void scan(BiConsumer<Method, Annotation> consumer, Class<?> aClass, Method method, Annotation[] methodAnnotations) {
+    private static void scan(
+            BiConsumer<Method, Annotation> consumer, Class<?> aClass, Method method, Annotation[] methodAnnotations
+    ) {
         for (Annotation annotation : methodAnnotations) {
             if (isTypeAnnotation(annotation)) {
                 validateMethod(aClass, method);

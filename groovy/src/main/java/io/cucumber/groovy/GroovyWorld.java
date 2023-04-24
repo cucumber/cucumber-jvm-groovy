@@ -107,7 +107,7 @@ class GroovyWorld extends GroovyObjectSupport {
         if (arguments instanceof Object[]) {
             return (Object[]) arguments;
         } else {
-            return new Object[]{arguments};
+            return new Object[] { arguments };
         }
     }
 }

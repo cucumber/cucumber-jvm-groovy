@@ -1,6 +1,5 @@
 package io.cucumber.groovy;
 
-
 import io.cucumber.core.backend.CucumberBackendException;
 
 import java.lang.reflect.Method;
@@ -35,7 +34,6 @@ final class InvalidMethodSignatureException extends CucumberBackendException {
             return this;
         }
 
-
         InvalidMethodSignatureExceptionBuilder addSignature(String signature) {
             signatures.add(signature);
             return this;
@@ -51,8 +49,7 @@ final class InvalidMethodSignatureException extends CucumberBackendException {
                     describeAnnotations() + " must have one of these signatures:\n" +
                     " * " + describeAvailableSignature() + "\n" +
                     "at " + describeLocation() + "\n" +
-                    describeNote() + "\n"
-            );
+                    describeNote() + "\n");
         }
 
         private String describeNote() {

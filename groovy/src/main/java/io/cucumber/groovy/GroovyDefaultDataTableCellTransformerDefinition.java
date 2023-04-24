@@ -9,14 +9,15 @@ import java.lang.reflect.Type;
 
 import static io.cucumber.groovy.InvalidMethodSignatureException.builder;
 
-class GroovyDefaultDataTableCellTransformerDefinition extends AbstractDatatableElementTransformerDefinition implements DefaultDataTableCellTransformerDefinition {
+class GroovyDefaultDataTableCellTransformerDefinition extends AbstractDatatableElementTransformerDefinition
+        implements DefaultDataTableCellTransformerDefinition {
 
     private final TableCellByTypeTransformer transformer;
 
     GroovyDefaultDataTableCellTransformerDefinition(Method method, Lookup lookup, String[] emptyPatterns) {
         super(requireValidMethod(method), lookup, emptyPatterns);
-        this.transformer = (cellValue, toValueType) ->
-                execute(replaceEmptyPatternsWithEmptyString(cellValue), toValueType);
+        this.transformer = (cellValue, toValueType) -> execute(replaceEmptyPatternsWithEmptyString(cellValue),
+            toValueType);
     }
 
     private static Method requireValidMethod(Method method) {
