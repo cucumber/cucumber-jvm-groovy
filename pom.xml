@@ -31,7 +31,7 @@
         <cucumber.version>7.11.2</cucumber.version>
         <gherkin.version>26.2.0</gherkin.version>
         <groovy.version>4.0.11</groovy.version>
-        <junit-jupiter.version>5.9.2</junit-jupiter.version>
+        <junit-jupiter.version>5.9.3</junit-jupiter.version>
         <project.Automatic-Module-Name>io.cucumber.groovy</project.Automatic-Module-Name>
     </properties>
 
