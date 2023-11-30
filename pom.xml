@@ -30,7 +30,7 @@
         <outputDirectory>${project.build.directory}</outputDirectory>
         <cucumber.version>7.14.1</cucumber.version>
         <gherkin.version>27.0.0</gherkin.version>
-        <groovy.version>4.0.15</groovy.version>
+        <groovy.version>4.0.16</groovy.version>
         <junit-jupiter.version>5.10.1</junit-jupiter.version>
         <project.Automatic-Module-Name>io.cucumber.groovy</project.Automatic-Module-Name>
     </properties>
