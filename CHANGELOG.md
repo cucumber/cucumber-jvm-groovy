@@ -165,7 +165,7 @@ See also the [CHANGELOG](https://github.com/cucumber/cucumber-jvm/blob/main/CHAN
 - Migrate to cucumber jvm 3.0.2 [\#6](https://github.com/cucumber/cucumber-jvm-groovy/pull/6) ([glib-briia](https://github.com/glib-briia))
 
 <!-- Releases -->
-[Unreleased]: https://github.com/cucumber/cucumber-jvm-scala/compare/v6.10.4...main
+[Unreleased]: https://github.com/cucumber/cucumber-jvm-scala/compare/v6.10.4...HEAD
 [5.7.1]:  https://github.com/cucumber/cucumber-jvm-groovy/compare/v6.1.2...v6.10.4
 [5.7.1]:  https://github.com/cucumber/cucumber-jvm-groovy/compare/v6.1.1...v6.1.2
 [5.7.1]:  https://github.com/cucumber/cucumber-jvm-groovy/compare/v5.1.3...v6.1.1
