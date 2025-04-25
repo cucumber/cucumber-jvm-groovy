@@ -10,7 +10,7 @@
     <parent>
         <groupId>io.cucumber</groupId>
         <artifactId>cucumber-parent</artifactId>
-        <version>4.2.0</version>
+        <version>4.3.7</version>
     </parent>
 
     <developers>
