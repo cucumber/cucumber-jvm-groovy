@@ -13,7 +13,7 @@
 
     <properties>
         <jackson.version>2.19.2</jackson.version>
-        <mockito.version>5.18.0</mockito.version>
+        <mockito.version>5.19.0</mockito.version>
     </properties>
 
     <dependencyManagement>
