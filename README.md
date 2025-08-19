@@ -25,3 +25,12 @@ See: https://cucumber.io/support
 ## They are using it
 
 You are using Cucumber Groovy? We would love to know about you! Please open a PR to add your project or company to the list below.
+
+
+## Contributing
+
+To build the project run:
+
+```shell
+mvn verify
+```

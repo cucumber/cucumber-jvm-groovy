@@ -2,7 +2,7 @@ import groovy.text.SimpleTemplateEngine
 import io.cucumber.gherkin.GherkinDialects
 
 def engine = new SimpleTemplateEngine()
-def templateSource = new File(project.baseDir, "${File.separator}src${File.separator}main${File.separator}groovy${File.separator}I18n.groovy.gsp").getText()
+def templateSource = new File(project.baseDir, "${File.separator}src${File.separator}main${File.separator}codegen${File.separator}I18n.groovy.gsp").getText()
 
 def unsupported = ["EM"] // The generated files for Emoij do not compile.
 
