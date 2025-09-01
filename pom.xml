@@ -28,7 +28,7 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <minimum.maven.version>3.3</minimum.maven.version>
         <outputDirectory>${project.build.directory}</outputDirectory>
-        <cucumber.version>7.27.2</cucumber.version>
+        <cucumber.version>7.28.0</cucumber.version>
         <gherkin.version>34.0.0</gherkin.version>
         <groovy.version>4.0.28</groovy.version>
         <junit-jupiter.version>5.13.4</junit-jupiter.version>
