@@ -29,7 +29,7 @@
         <minimum.maven.version>3.3</minimum.maven.version>
         <outputDirectory>${project.build.directory}</outputDirectory>
         <cucumber.version>7.28.2</cucumber.version>
-        <gherkin.version>35.0.0</gherkin.version>
+        <gherkin.version>35.1.0</gherkin.version>
         <groovy.version>4.0.28</groovy.version>
         <junit-jupiter.version>5.13.4</junit-jupiter.version>
         <project.Automatic-Module-Name>io.cucumber.groovy</project.Automatic-Module-Name>
